@@ -8,6 +8,7 @@ use App\Models\Slider;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Category;
+use App\Models\Notice;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\File;
@@ -17,37 +18,28 @@ class HomeController extends Controller
 {
 
        public function home(Request $request){
-            $product = Product::where('product_status',1)->orderBy('serial','asc')->get(); 
-            return view('frontend.home',['product'=>$product]);  
+            $slider = Notice::where('notice_status',1)->where('event_id',4)->orderBy('serial','asc')->get(); 
+            $service = Notice::where('notice_status',1)->where('event_id',2)->orderBy('serial','asc')->get(); 
+            $notice = Notice::where('notice_status',1)->where('event_id',1)->orderBy('serial','asc')->get(); 
+            $testimonial = Notice::where('notice_status',1)->where('event_id',3)->orderBy('serial','asc')->get(); 
+           
+             return view('frontend.book',['slider'=>$slider,'service'=>$service,
+                          'notice'=>$notice,'testimonial'=>$testimonial]);  
         }
 
 
-        public function cart(Request $request){
-            return view('frontend.cart');  
+        public function member_book(Request $request){
+            $slider = Notice::where('notice_status',1)->where('event_id',4)->orderBy('serial','asc')->get(); 
+            $service = Notice::where('notice_status',1)->where('event_id',2)->orderBy('serial','asc')->get(); 
+            $notice = Notice::where('notice_status',1)->where('event_id',1)->orderBy('serial','asc')->get(); 
+            $testimonial = Notice::where('notice_status',1)->where('event_id',3)->orderBy('serial','asc')->get(); 
+           
+             return view('frontend.book',['slider'=>$slider,'service'=>$service,
+                          'notice'=>$notice,'testimonial'=>$testimonial]);  
         }
 
 
-        public function category_detail(Request $request){
-            $category_id=$request->category_id;
-            $category=Category::where('id', $category_id)->first();
-            $category_product = Product::where('category_id',$category_id)->orderBy('serial','asc')->get(); 
-            return view('frontend.category_product',['category_product'=>$category_product,'category'=>$category]);  
-        }
 
 
-        
-        public function product_detail(Request $request){
-             $product_id=$request->product_id;
-             $product = Product::find($product_id); 
-             $product_slider=Slider::where('product_id',$product_id)->orderBy('serial','asc')->get();
-             return view('frontend.product_detail',['product'=>$product,'product_slider'=>$product_slider]);  
-         }
-
-        
-
-
-
-
-  
-
+    
 }

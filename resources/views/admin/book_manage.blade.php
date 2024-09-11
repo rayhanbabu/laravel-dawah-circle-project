@@ -113,10 +113,6 @@
                <input type="number" name="page" class="form-control form-control-sm" value="{{$page}}" required>
           </div> 
 
-          <div class="form-group col-sm-2 my-2">
-               <label class=""><b> Book Copy <span style="color:red;"> * </span></b></label>
-               <input type="number" name="book_copy" class="form-control form-control-sm" value="{{$book_copy}}" required>
-          </div> 
 
           <div class="form-group col-sm-2  my-2">
                 <label class=""><b>Book Status <span style="color:red;"> * </span> </b></label>

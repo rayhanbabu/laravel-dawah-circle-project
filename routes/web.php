@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\HallController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\NoticeController;
 
 
 
@@ -30,11 +31,11 @@ use App\Http\Controllers\Admin\BookController;
 |
 */
 
-       Route::get('/', function () {
-       return view('welcome');
-       });
+      //  Route::get('/', function () {
+      //  return view('welcome');
+      //  });
 
-       // Route::get('/', [HomeController::class, 'home']);
+       Route::get('/', [HomeController::class, 'home']);
       Route::get('/cart', [HomeController::class, 'cart']);
       Route::get('/category/{category_id}', [HomeController::class, 'category_detail']);
       Route::get('/product_detail/{product_id}', [HomeController::class, 'product_detail']);
@@ -122,12 +123,16 @@ use App\Http\Controllers\Admin\BookController;
            Route::post('/admin/book/insert', [BookController::class,'book_insert']);
            Route::get('/admin/book/delete/{id}', [BookController::class,'book_delete']);
 
-            //Slider 
-            Route::get('/admin/slider/{product_id}', [SliderController::class,'slider']);
-            Route::get('/admin/slider/manage/{product_id}', [SliderController::class,'slider_manage']);
-            Route::get('/admin/slider/manage/{product_id}/{id}', [SliderController::class,'slider_manage']);
-            Route::post('/admin/slider/insert', [SliderController::class,'slider_insert']);
-            Route::get('/admin/slider/delete/{id}', [SliderController::class,'slider_delete']);
+           Route::get('/admin/book_copy/manage/{id}', [BookController::class,'book_copy_manage']);
+           Route::post('/admin/book_copy/insert', [BookController::class,'book_copy_insert']);
+
+            //notice 
+            Route::get('/admin/notice/{event_id}', [NoticeController::class,'notice']);
+            Route::get('/admin/notice/manage/{event_id}', [NoticeController::class,'notice_manage']);
+            Route::get('/admin/notice/manage/{event_id}/{id}', [NoticeController::class,'notice_manage']);
+            Route::post('/admin/notice/insert', [NoticeController::class,'notice_insert']);
+            Route::get('/admin/notice/delete/{id}', [NoticeController::class,'notice_delete']);
+
 
             // Member  
             Route::get('/admin/member',[MemberController::class,'member']);
@@ -160,12 +165,13 @@ use App\Http\Controllers\Admin\BookController;
 
 
         //Member login
-        Route::get('/member/login',[MemberAuthController::class,'login'])->middleware('MemberTokenExist');
+        Route::get('/member/login',[MemberAuthController::class,'member_login'])->middleware('MemberTokenExist');
         Route::get('/member/register',[MemberAuthController::class,'register'])->middleware('MemberTokenExist');
         Route::post('/member/register_insert',[MemberAuthController::class,'register_insert']);
         Route::post('/member/login_insert',[MemberAuthController::class,'login_insert']);
        
        
+        Route::get('/member/book',[HomeController::class,'member_book']);
 
          Route::middleware('MemberToken')->group(function(){
               Route::get('/member/logout',[MemberAuthController::class,'logout']);

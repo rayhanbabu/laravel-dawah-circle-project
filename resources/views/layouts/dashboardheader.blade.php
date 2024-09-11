@@ -104,6 +104,23 @@
       </div>
 
 
+      <a class="nav-link @yield('Executive_select')  
+           collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts12" aria-expanded="false" aria-controls="collapseLayouts">
+        <div class="sb-nav-link-icon "><i class="fas fa-columns"></i></div>
+             News & Event
+         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+     </a>
+        <div class="collapse" id="collapseLayouts12" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+        <nav class="sb-sidenav-menu-nested nav">
+            @foreach(event_detail() as $row)
+                <a class="nav-link @yield('notice'.$row->id)" href="{{url('/admin/notice/'.$row->id)}}"> {{$row->event_name}} </a>
+            @endforeach   
+         </nav>
+      </div>
+
+
+
+
      
 
          <a class="nav-link @yield('book') " href="{{url('admin/book')}}">
@@ -111,11 +128,6 @@
                  Book
           </a>
 
-
-     <a class="nav-link @yield('stock') " href="{{url('admin/stock')}}">
-          <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-               Stock
-       </a>  
 
        <a class="nav-link @yield('member') " href="{{url('admin/member')}}">
           <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>

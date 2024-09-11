@@ -56,6 +56,13 @@
         $data = Event::where('event_status',1)->orderBy('event_name','asc')->get();
         return $data;
     }
+
+
+     function event_id_detail($event_id){
+        $event=Event::find($event_id);
+        return $event;
+     }
+       
   
     
 

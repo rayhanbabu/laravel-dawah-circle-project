@@ -47,7 +47,7 @@
                          <td> Publisher </td>
                          <td> Book Name </td>
                          <td> Book Assign </td>
-                         <td> Book Copy</td>
+                         <td> Copy </td>
                          <td> Book Status</td>
                          <td> Edit </td>
                          <td> Delete </td>
@@ -81,14 +81,14 @@
            }
        },
        columns: [
-            {data: 'id', name: 'id'},
+            {data: 'book_id', name: 'book_id'},
             {data: 'image', name: 'image'},
             {data: 'category_name', name: 'category_name'},
             {data: 'author_name', name: 'author_name'},
             {data: 'publisher_name', name: 'publisher_name'},
             {data: 'title', name: 'title'},
             {data: 'name', name: 'name'},
-            {data: 'book_copy', name: 'book_copy'},
+            {data: 'copy', name: 'copy'},
             {data: 'status', name: 'status'},
             {data: 'edit', name: 'edit', orderable: false, searchable: false},
             {data: 'delete', name: 'delete', orderable: false, searchable: false},

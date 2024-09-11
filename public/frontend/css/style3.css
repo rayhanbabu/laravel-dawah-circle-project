@@ -1,0 +1,450 @@
+/********** Template CSS **********/
+:root {
+    --primary: #43f23dd9;
+    --secondary: #757575;
+    --light: #F3F6F8;
+    --dark: #0C2B4B;
+    --hover: #03fa1f;
+}
+
+.py-6 {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+
+.my-6 {
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+}
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 30px;
+    bottom: 30px;
+    z-index: 99;
+}
+
+
+/*** Spinner ***/
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+#spinner.show {
+    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/*** Button ***/
+.btn {
+    font-weight: 500;
+    transition: .5s;
+}
+
+.btn.btn-primary,
+.btn.btn-outline-primary:hover {
+    color: #FFFFFF;
+}
+
+.btn-square {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+}
+
+
+/*** Navbar ***/
+.navbar.sticky-top {
+    top: -100px;
+    transition: .5s;
+}
+.navbar{
+    background-color: white;
+    box-shadow: 10px 10px 30px #0000001a;
+}
+
+.navbar .navbar-brand,
+.navbar a.btn {
+    height: 80px
+}
+
+.navbar .navbar-nav .nav-link {
+    margin-right: 30px;
+    padding: 10px 0;
+    color: black;
+    font-weight: 500;
+    font-size: 19px;
+    outline: none;
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active {
+    color: rgb(2, 103, 255);
+}
+
+.navbar .dropdown-toggle::after {
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.navbar-toggler-icon{
+    display: none;
+}
+
+@media (max-width: 1180px) {
+    .navbar .navbar-nav .nav-link  {
+        margin-right: 0;
+        padding: 10px 0;
+    }
+
+    .navbar .navbar-nav {
+        border-top: 1px solid #EEEEEE;
+        padding-left: 20px;
+    }
+    .navbar-toggler-icon{
+        display: block;
+
+    }
+    .logo-image{
+        width: 300px;
+    }
+    .navbar{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+    }
+}
+
+@media (min-width: 1180px) {
+    .navbar .nav-item .dropdown-menu {
+        display: block;
+        border: none;
+        margin-top: 0;
+        top: 150%;
+        opacity: 0;
+        visibility: hidden;
+        transition: .5s;
+    }
+
+    .navbar .nav-item:hover .dropdown-menu {
+        top: 100%;
+        visibility: visible;
+        transition: .5s;
+        opacity: 1;
+    }
+}
+
+
+/*** Header ***/
+.carousel-caption {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+   
+    z-index: 1;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 10%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--primary);
+    border: 10px solid var(--primary);
+}
+
+@media (max-width: 768px) {
+    #header-carousel .carousel-item {
+        position: relative;
+        min-height: 300px;
+    }
+    
+    #header-carousel .carousel-item img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .top-nav{
+        height: 70px;
+    }
+    .logo-image{
+        height: auto;
+        width: 160px;
+    }
+}
+
+.page-header {
+    background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(../img/carousel-1.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: #999999;
+}
+
+
+/*** Facts ***/
+@media (min-width: 991.98px) {
+    .facts {
+        position: relative;
+        margin-top: -75px;
+        z-index: 1;
+    }
+}
+
+
+/*** Courses ***/
+.courses {
+    *background: linear-gradient(rgba(255, 255, 255, .9), rgba(255, 255, 255, .9)), url(../img/carousel-1.jpg) center center no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.courses-item .courses-overlay {
+    position: absolute;
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .5);
+    overflow: hidden;
+    opacity: 0;
+    transition: .5s;
+}
+
+.courses-item:hover .courses-overlay {
+    height: 100%;
+    opacity: 1;
+}
+
+
+/*** Team ***/
+.team-items {
+    margin: -.75rem;
+}
+
+.team-item {
+    padding: .75rem;
+}
+.team-item .team-overlay {
+    position: absolute;
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .5);
+    overflow: hidden;
+    opacity: 0;
+    transition: .5s;
+}
+
+.team-item:hover .team-overlay {
+    height: 100%;
+    opacity: 1;
+}
+
+/*** Testimonial ***/
+.testimonial-carousel .owl-dots {
+    height: 40px;
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.testimonial-carousel .owl-dot {
+    position: relative;
+    display: inline-block;
+    margin: 0 5px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: 2px solid var(--primary);
+    transition: .5s;
+}
+
+.testimonial-carousel .owl-dot.active {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+}
+
+.testimonial-carousel .owl-item img {
+    width: 150px;
+    height: 150px;
+}
+
+
+/*** Footer ***/
+.footer .btn.btn-link {
+    display: block;
+    margin-bottom: 5px;
+    padding: 0;
+    text-align: left;
+    color: var(--light);
+    font-weight: normal;
+    text-transform: capitalize;
+    transition: .3s;
+}
+
+.footer .btn.btn-link::before {
+    position: relative;
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: var(--light);
+    margin-right: 10px;
+}
+
+.footer .btn.btn-link:hover {
+    color: var(--primary);
+    letter-spacing: 1px;
+    box-shadow: none;
+}
+
+.copyright {
+    background: #092139;
+}
+
+.copyright a {
+    color: var(--primary);
+}
+
+.copyright a:hover {
+    color: var(--light);
+}
+@media screen and (max-wdith:568px) {
+    .logo-image{
+        width: 200px;
+    }
+}
+
+
+
+.service-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(10, 200, 41, 0.2);
+    margin-bottom: 20px;
+    padding: 20px;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .service-card .btn-details {
+    border: 2px solid #08871b;
+    border-radius: 4px;
+    color: #0eac55;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .service-card .btn-details:hover {
+    background-color: #07f42ee0;
+    color: #fff;
+  }
+  .service-page {
+    padding: 40px 0;
+  }
+  .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .section-title h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  .section-title p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+
+
+  body {
+    background-color: #f0f4f8;
+}
+.login-container {
+    max-width: 400px;
+    width: 100%;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.login-header {
+    margin-bottom: 20px;
+}
+.form-control {
+    border-radius: 0.5rem;
+}
+.footer-links {
+    margin-top: 15px;
+    text-align: center;
+}
+.footer-links a {
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.card {
+    border: none;
+}
+.password-container {
+    position: relative;
+}
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

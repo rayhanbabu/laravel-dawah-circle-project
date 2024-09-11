@@ -1,170 +1,190 @@
 @extends('frontend/headerhome')
 @section('page_title','Admin Dashboard')
-@section('brand','active')
+@section('home','active')
 @section('homecontent')
 
 
-   <!-- banner -->
-   <section class="banner px-3 mx-auto max-w-screen-lg mb-10">
-        <button class="block bg-black border-0 uppercase text-white w-full px-3 py-2">
-           Welcome to Altabanu
-       </button>
-       <p class="my-3 text-center">
-            Committed to Bringing Unique Traditional Customized Bangladeshi Clothing
-            and <br class="hidden sm:block" />
-            Handcrafted Jewelry to Your Doorsteps
-      </p>
-      <img src="{{asset('frontend/images/banner.png')}}" alt="banner image" class="w-full h-auto" />
-    </section>
-    <!-- banner -->
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">
+        <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner" style="height: 500px;">
+
+          @php
+               $index = 0; // Initialize counter
+          @endphp
+
+          @foreach($slider as $row)
+            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+              <img class="w-100" src="{{asset('uploads/admin/'.$row->image)}}" alt="Image" />
+              <div class="carousel-caption">
+                <div class="container">
+                  <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                      <a href="{{url($row->link)}}" class="btn btn-primary py-sm-3 px-sm-5"
+                        > বিস্তারিত </a
+                      >
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+         
+          @php
+             $index++; // Increment counter
+         @endphp
+
+       @endforeach
+
+           
 
 
-
-    <!-- product -->
-    <section class="max-w-screen-xl mx-auto px-2 border rounded">
-      <div class="p-5 border-b-2">
-        <h2 class="text-2xl font-semibold">Top Rated Products</h2>
-      </div>
-
-      <div class="products gap-4 grid mt-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-
-      @foreach($product as $row) 
-      <div 
-            class="product hover:shadow transition duration-300 hover:bg-gray-100 cursor-pointer border-2 border-[#D78D81] rounded p-2"
-        >
-        <a href="{{url('product_detail/'.$row->id)}}"> 
-        <div class="flex justify-center">
-          <img src="{{asset('/uploads/admin/'.$row->image)}}" alt="product" class="w-auto" style="height: 300px;" />
-       </div>
-        <h4 class="text-xl mt-2 font-bold"> {{ $row->product_name }} </h4>
-          <div class="price flex items-center gap-3 my-3">
-            <p class="line-through text-gray-400"> {{ $row->amount }} TK </p>
-            <p> {{ $row->amount }} TK </p>
           </div>
-          </a>
-
-              <button class="bg-[#D78D81] hover:bg-red-400 transition duration-300 block w-full px-4 py-2 rounded-lg" >
-                 Add to Cart
-             </button>
-
-       </div>
-      @endforeach
-      
-
-        <!-- Repeat the above product div for other products -->
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#header-carousel"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#header-carousel"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
       </div>
-    </section>
-    <!-- product -->
+      <!-- Carousel End -->
 
-    <!-- about -->
-    <section class="about max-w-screen-xl mx-auto px-2 text-center py-8 my-10">
-      <div class="-mt-12">
-        <h3 class="uppercase font-bold text-2xl mb-5">About Altabanu</h3>
-        <p class="mb-8">
-          Since being established in 2020, Altabanu has been known for an
-          unparalleled commitment to customer satisfaction. <br />
-          It’s this standard of excellence that has provided the impetus for us
-          to grow into the business we are today.
-        </p>
-        <p>
-          We believe that the customer always comes first - and that means
-          exceptional products and exceptional services. <br />
-          Get in touch today to learn more about what we have to offer.
-        </p>
+
+
+      <div class="container service-page">
+        <div class="section-title">
+          <h1>আমাদের সেবা সমূহ</h1>
         
-      </div>
-    </section>
-    <!-- about -->
-    <section
-      class="service my-12 px-2 max-w-screen-xl mx-auto bg-[#FCF3F1] min-h-[30vh]"
-    >
-      <div class="text-center py-4 mb-5 border-b-2">
-        <h1 class="text-3xl font-bold -mt-8">SERVICE</h1>
-        <p>Exceding your experience</p>
-      </div>
-      <div class="p-5 flex flex-wrap md:flex-nowrap gap-5 border-b-2">
-        <img src="{{asset('frontend/images/service1.png')}}" alt="service-image" />
-        <div class="">
-          <h3 class="font-bold text-2xl mb-4 capitalize">scheduled delivary</h3>
-          <p>
-            We want all of our customers to experience the impressive level of
-            professionalism when working with Altabanu.com. All of our services,
-            especially this one, exist to make your life easier and stress free.
-            You can trust us to supply you with the best products, as well as
-            top quality customer service.
-          </p>
         </div>
-      </div>
-      <div class="p-5 flex flex-wrap md:flex-nowrap gap-5 border-b-2">
-        <div class="">
-          <h3 class="font-bold text-2xl mb-4 capitalize">scheduled delivary</h3>
-          <p>
-             We want all of our customers to experience the impressive level of
-             professionalism when working with Altabanu.com. All of our services,
-             especially this one, exist to make your life easier and stress free.
-             You can trust us to supply you with the best products, as well as
-             top quality customer service.
-          </p>
+    
+        <div class="row">
+          <!-- Outdoor Service Card -->
+
+          @foreach($service as $item)
+    <div class="col-md-4 p-2">
+        <div class="service-card">
+            <h3>{{ $item->title }}</h3>
+            <p>{{ $item->text }}</p>
+            <a href="{{ !empty($item->link) ? url($item->link) : url('#') }}" class="btn btn-outline-primary btn-details">বিস্তারিত</a>
         </div>
-        <img src="{{asset('frontend/images/service-2.png')}}" alt="service-image" />
+       </div>
+   @endforeach
+        
+
+        <!-- Repeat for more items as needed -->
       </div>
-    </section>
-    <!--  -->
-    <!-- contact -->
-    <section
-      class="mx-auto px-2 my-10 grid max-w-screen-xl grid-cols-1 gap-5 sm:grid-cols-2"
-    >
-      <div class="h-full md:h-[70vh]">
-        <img
-          src="{{asset('frontend/images/contact.jpg')}}"
-          class="object-cover w-full h-full"
-          alt="contact"
-        />
-      </div>
-      <div class="flex flex-col">
-        <h2 class="font-semibold uppercase text-center mb-5 text-2xl">
-          get in touch
-        </h2>
-        <div class="md:max-w-[60%] mx-auto">
-          <div class="flex gap-5 mx-auto mb-5">
-            <input
-              type="text"
-              placeholder="Name"
-              class="p-2 border-b-2 border-black w-full"
-            /><input
-              type="text"
-              placeholder="Email"
-              class="p-2 border-b-2 border-black w-full"
-            />
+    </div>
+  </div>
+</div>
+<!-- Courses End -->
+
+
+
+
+           <!-- Notice Start -->
+<div class="container courses my-2 py-1 pb-0 ">
+  <div class="container">
+    <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">
+      
+      <h1 class="display-6 mb-4">
+          নোটিশ সমূহ
+      </h1>
+    </div>
+    <div class="row g-4 justify-content-center p-2">
+         <!-- Owl Carousel Wrapper -->
+       <div class="owl-carousel courses-carousel">
+
+       @foreach($notice as $item)
+        <!-- Course Item 1 -->
+        <div class="courses-item d-flex flex-column bg-white overflow-hidden shadow">
+          <div class="position-relative mt-auto">
+             <div class="text-center">
+                <img class="img-fluid mx-auto d-block" src="{{ asset('uploads/admin/'.$item->image) }}" alt="" style="height: 270px; width: auto;" />
+            </div>
+            <div class="courses-overlay">
+              <a class="btn btn-outline-primary border-2" href="{{url('notice_detail/'.$item->id)}}">Read More</a>
+            </div>
           </div>
-          <div class="mx-auto">
-            <input
-              type="text"
-              placeholder="Subject"
-              class="p-2 border-b-2 border-black mx-auto w-full"
-            />
-            <textarea
-              name=""
-              cols="12"
-              rows="6"
-              placeholder="Message"
-              class="mt-5 w-full border-b-2 border-black"
-              id=""
-            ></textarea>
-            <button
-              class="bg-black border-0 py-2 px-4 text-lg capitalize text-white mt-5 w-full"
-            >
-              Submit
-            </button>
+          <div class="text-center py-4 pt-3">
+            <p> {{$item->title}} </p>
           </div>
         </div>
+        @endforeach
+       
+        <!-- Repeat for more items as needed -->
       </div>
-    </section>
-    <!-- contact -->
+    </div>
+  </div>
+</div>
+<!-- Notice End -->
+
+
+  @if($testimonial->isNotEmpty())
+     <!-- Testimonial Start -->
+     <div class="container-xxl py-2">
+      <div class="container">
+        <div
+          class="text-center mx-auto mb-5 wow fadeInUp"
+          data-wow-delay="0.1s"
+        >
+          <h1 class="display-6 mb-4">  ঢাকা বিশ্ববিদ্যালয় দাওয়াহ সার্কেল  সম্পকে </h1>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8  wow fadeInUp " data-wow-delay="0.1s">
+            <div class="owl-carousel testimonial-carousel">
+
+
+         @foreach($testimonial as $item)
+              <div class="testimonial-item text-center">
+                <div class="position-relative mb-5">
+                  <img
+                  class="img-fluid rounded-circle mx-auto"
+                  src="{{ asset('uploads/admin/'.$item->image) }}"
+                  alt=""
+                  style="width: 100px; height: 100px;"
+                />
+                  <div
+                    class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle"
+                    style="width: 60px; height: 60px"
+                  >
+                    <i class="fa fa-quote-left fa-2x text-primary"></i>
+                  </div>
+                </div>
+                <p class="fs-4">
+                   {{$item->text}}
+                </p>
+                <hr class="w-25 mx-auto" />
+                <h5>{!!$item->title!!}</h5>
+               
+              </div>
+         @endforeach
 
 
 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Testimonial End -->
+    @endif
+
+  
    
 
 
 @endsection
+

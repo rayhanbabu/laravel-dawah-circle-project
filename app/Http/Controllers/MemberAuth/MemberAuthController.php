@@ -15,13 +15,36 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
+use App\Models\Notice;
 
 class MemberAuthController extends Controller
 {
-    public function login(Request $request)
+    public function member_login(Request $request)
     {
         try {
-            return view('memberauth.login');
+            $slider = Notice::where('notice_status',1)->where('event_id',4)->orderBy('serial','asc')->get(); 
+            $service = Notice::where('notice_status',1)->where('event_id',2)->orderBy('serial','asc')->get(); 
+            $notice = Notice::where('notice_status',1)->where('event_id',1)->orderBy('serial','asc')->get(); 
+            $testimonial = Notice::where('notice_status',1)->where('event_id',3)->orderBy('serial','asc')->get(); 
+           
+             return view('frontend.login',['slider'=>$slider,'service'=>$service,
+                          'notice'=>$notice,'testimonial'=>$testimonial]);  
+        } catch (Exception $e) {
+            return  view('errors.error', ['error' => $e]);
+        }
+    }
+
+
+    public function user_login(Request $request)
+    {
+        try {
+            $slider = Notice::where('notice_status',1)->where('event_id',4)->orderBy('serial','asc')->get(); 
+            $service = Notice::where('notice_status',1)->where('event_id',2)->orderBy('serial','asc')->get(); 
+            $notice = Notice::where('notice_status',1)->where('event_id',1)->orderBy('serial','asc')->get(); 
+            $testimonial = Notice::where('notice_status',1)->where('event_id',3)->orderBy('serial','asc')->get(); 
+           
+             return view('frontend.user_login',['slider'=>$slider,'service'=>$service,
+                          'notice'=>$notice,'testimonial'=>$testimonial]);  
         } catch (Exception $e) {
             return  view('errors.error', ['error' => $e]);
         }
@@ -31,7 +54,7 @@ class MemberAuthController extends Controller
     public function register(Request $request)
       {
          try {
-             return view('memberauth.register');
+             return view('frontend.register');
           } catch (Exception $e) {
              return  view('errors.error', ['error' => $e]);
           }

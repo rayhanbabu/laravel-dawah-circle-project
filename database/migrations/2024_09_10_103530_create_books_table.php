@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('books', function (Blueprint $table) {
+
             $table->id();
 
+            $table->string('book_id')->unique();
+            $table->integer('book_code');
             $table->unsignedBigInteger('publisher_id');
             $table->foreign('publisher_id')->references('id')->on('publishers');
 
@@ -29,13 +32,15 @@ return new class extends Migration
             $table->string('author_id');
             $table->integer('book_status')->default(1);
 
+          
+
             $table->string('title');
             $table->text('desc')->nullable();
             $table->string('image')->nullable();
-            $table->integer('serial')->default(0);
+            $table->integer('serial')->nullable();
 
             $table->enum('gender',['Female','Male']);
-            $table->integer('book_copy')->default(0);
+            $table->integer('book_copy')->nullable();
 
             $table->string('page')->nullable();
 
