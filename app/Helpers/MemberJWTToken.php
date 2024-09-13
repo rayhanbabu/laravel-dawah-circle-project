@@ -7,7 +7,7 @@ use Exception;
 
 class MemberJWTToken
 {
-    public static function CreateToken($name,$email,$member_id)
+    public static function CreateToken($name,$email,$member_id,$gender)
     {
         $key ="qomNRPiHjkS173qIm3BgIvNLQvnUpsmPfdAVbY";
         $payload=[
@@ -17,6 +17,7 @@ class MemberJWTToken
             'email'=>$email,
             'name'=>$name,
             'member_id'=>$member_id,
+            'gender'=>$gender,
         ];
         return JWT::encode($payload,$key,'HS256');
     }

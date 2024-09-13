@@ -92,18 +92,23 @@
      </a>
         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
         <nav class="sb-sidenav-menu-nested nav">
-             <a class="nav-link @yield('role_access')" href="{{url('/admin/role_access')}}"> Role Access </a>
-             <a class="nav-link @yield('category')" href="{{url('/admin/category')}}"> Book Category </a> 
-             <a class="nav-link @yield('hall')" href="{{url('/admin/hall')}}"> Hall </a> 
-             <a class="nav-link @yield('department')" href="{{url('/admin/department')}}"> Department </a> 
-             <a class="nav-link @yield('author')" href="{{url('/admin/author')}}"> Author </a> 
-             <a class="nav-link @yield('publisher')" href="{{url('/admin/publisher')}}"> Publisher </a> 
-             <a class="nav-link @yield('event')" href="{{url('/admin/event')}}"> Event </a> 
+            @if(admin_access())
+              <a class="nav-link @yield('role_access')" href="{{url('/admin/role_access')}}"> Role Access </a>
+              <a class="nav-link @yield('hall')" href="{{url('/admin/hall')}}"> Hall </a> 
+              <a class="nav-link @yield('department')" href="{{url('/admin/department')}}"> Department </a> 
+              <a class="nav-link @yield('event')" href="{{url('/admin/event')}}"> Event </a> 
+            @endif
+
+            @if(staff_access())
+               <a class="nav-link @yield('author')" href="{{url('/admin/author')}}"> Author </a> 
+               <a class="nav-link @yield('publisher')" href="{{url('/admin/publisher')}}"> Publisher </a>
+               <a class="nav-link @yield('category')" href="{{url('/admin/category')}}"> Book Category </a>  
+            @endif
              
          </nav>
       </div>
 
-
+      @if(admin_access())
       <a class="nav-link @yield('Executive_select')  
            collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts12" aria-expanded="false" aria-controls="collapseLayouts">
         <div class="sb-nav-link-icon "><i class="fas fa-columns"></i></div>
@@ -116,22 +121,27 @@
                 <a class="nav-link @yield('notice'.$row->id)" href="{{url('/admin/notice/'.$row->id)}}"> {{$row->event_name}} </a>
             @endforeach   
          </nav>
-      </div>
+        </div>
+       @endif
 
-
-
-
-     
-
+    
+      
          <a class="nav-link @yield('book') " href="{{url('admin/book')}}">
             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                  Book
           </a>
+        
 
-
-       <a class="nav-link @yield('member') " href="{{url('admin/member')}}">
-          <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+        @if(admin_access())
+          <a class="nav-link @yield('member') " href="{{url('admin/member')}}">
+              <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                Member
+         </a>
+        @endif  
+
+       <a class="nav-link @yield('issue') " href="{{url('admin/issue')}}">
+          <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+              Book Issue
        </a>
 
      

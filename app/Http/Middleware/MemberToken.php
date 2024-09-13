@@ -25,6 +25,7 @@ class MemberToken
               $request->headers->set('member_name',$result->name);
               $request->headers->set('email',$result->email);
               $request->headers->set('member_id',$result->member_id);
+              $request->headers->set('gender',$result->gender);
               return $next($request);
         }
     }

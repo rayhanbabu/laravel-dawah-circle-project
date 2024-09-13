@@ -16,13 +16,26 @@ class BookController extends Controller
 {
     public function book(Request $request){
 
+        $auth=Auth::user();
         if ($request->ajax()){
+
+          if($auth->userType=='Admin'){
+             $data = Book::leftjoin('users','users.id','=','books.user_id') 
+             ->leftjoin('authors','authors.id','=','books.author_id')
+             ->leftjoin('publishers','publishers.id','=','books.publisher_id')
+             ->leftjoin('categories','categories.id','=','books.category_id')
+             ->select('users.name','authors.author_name','publishers.publisher_name'
+             ,'categories.category_name','books.*')->latest()->get();
+          }else{
             $data = Book::leftjoin('users','users.id','=','books.user_id') 
-              ->leftjoin('authors','authors.id','=','books.author_id')
-              ->leftjoin('publishers','publishers.id','=','books.publisher_id')
-              ->leftjoin('categories','categories.id','=','books.category_id')
-              ->select('users.name','authors.author_name','publishers.publisher_name'
-               ,'categories.category_name','books.*')->latest()->get();
+            ->leftjoin('authors','authors.id','=','books.author_id')
+            ->leftjoin('publishers','publishers.id','=','books.publisher_id')
+            ->leftjoin('categories','categories.id','=','books.category_id')
+            ->where('user_id',$auth->id)
+            ->select('users.name','authors.author_name','publishers.publisher_name'
+            ,'categories.category_name','books.*')->latest()->get();
+          }
+           
              return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function($row){
@@ -100,7 +113,7 @@ class BookController extends Controller
       {
           if(!$request->input('id')){
               $request->validate([
-                 'title' => 'required|unique:books,title',
+                 'title' => 'required',
                  'book_status' => 'required',
                  'author_id' => 'required',
                  'category_id' => 'required',
@@ -108,7 +121,7 @@ class BookController extends Controller
                ]);
           }else{
               $request->validate([
-                 'title' => 'required|unique:books,title,'.$request->post('id'),
+                 'title' => 'required',
                  'book_status' => 'required',
                  'author_id' => 'required',
                  'category_id' => 'required',

@@ -37,6 +37,9 @@
                          <td> Name </td>
                          <td> Email</td>
                          <td> Phone </td>
+                         <td> Du Reg </td>
+                         <td> Hall </td>
+                         <td> Address </td>
                          <td> Email Verify </td>
                          <td> Status </td>
                          <td> Edit </td>
@@ -59,7 +62,7 @@
   </div>
 </div>
 
-<script src="{{ asset('js/member.js') }}"></script>
+<script src="{{ asset('js/memberauth.js') }}"></script>
 
       
      
@@ -85,7 +88,35 @@
             </div>
 
 
-           
+            <div class="col-lg-6 ">
+                  <label class=""> Gender  <span style="color:red;"> * </span> </label>
+                     <select  class="form-control" name="gender" id="gender" aria-label="Default select example">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+            </div>
+
+
+            <div class="col-lg-6 ">
+                <label for="roll">Registartion <span style="color:red;"> * </span> </label>
+                <input type="text" name="registration"   pattern="\d{10}" 
+                maxlength="10" 
+                title="Please enter a valid 10-digit registration number" id="registration" class="form-control" placeholder="" required>
+                <p class="text-danger error_registration"></p>
+            </div>
+
+            <div class="col-lg-6 ">
+                  <label class=""> Hall Name  <span style="color:red;"> * </span> </label>
+                     <select  class="form-control" name="hall_id" id="hall_id" aria-label="Default select example">
+                     <option  disabled>Select your Hall</option>
+                      @foreach(hall() as $row)
+                        <option value="{{ $row->id }}">
+                           {{ $row->hall_name }}
+                        </option>
+                      @endforeach      
+                       
+                    </select>
+            </div>
 
             <div class="col-lg-6 ">
                 <label for="roll">Email <span style="color:red;"> * </span></label>
@@ -96,8 +127,16 @@
 
             <div class="col-lg-6 ">
                  <label for="roll">Phone <span style="color:red;"> * </span></label>
-                 <input type="text" name="phone" id="phone" class="form-control" placeholder="" required>
+                 <input type="text" name="phone" pattern="[0][1][3 7 6 5 8 9][0-9]{8}" title="
+                 Please select Valid mobile number" id="phone" class="form-control" placeholder="" required>
                  <p class="text-danger error_phone"></p>
+            </div>
+
+
+            <div class="col-lg-6 ">
+                <label for="roll"> Address </label>
+                <input type="text" name="address" id="address" class="form-control" placeholder="" >
+                <p class="text-danger error_address"></p>
             </div>
 
           <div class="col-lg-6 ">
@@ -145,24 +184,12 @@
 
           <div class="col-lg-6">
                <label for="roll">Name<span style="color:red;"> * </span></label>
-               <input type="text" name="member_name" id="edit_member_name" class="form-control" placeholder="" required>
-               <p class="text-danger error_member_name"></p>
+               <input type="text" name="name" id="edit_name" class="form-control" placeholder="" required>
+               <p class="text-danger error_name"></p>
             </div>
 
 
-            <div class="col-lg-6 ">
-                  <label class=""> Patient Category <span style="color:red;"> * </span> </label>
-                     <select class="form-select" name="member_category" id="edit_member_category" aria-label="Default select example">
-                        <option value="Student">Student</option>
-                        <option value="Employee">Employee</option>
-                    </select>
-            </div>
-
-            <div class="col-lg-6 ">
-                <label for="roll">Designation <span style="color:red;"> * </span></label>
-                <input type="text" name="designation" id="edit_designation" class="form-control" placeholder="" required>
-                <p class="text-danger error_designation"></p>
-            </div>
+      
 
             <div class="col-lg-6 ">
                 <label for="roll">Email <span style="color:red;"> * </span></label>
@@ -193,9 +220,18 @@
             </div>
 
 
+
             <div class="col-lg-6 ">
-                <label for="roll"> Date of Birth  <span style="color:red;"> * </span>  </label>
-                <input type="date" name="dobirth" id="edit_dobirth" class="form-control" placeholder="" required>
+                  <label class=""> Hall Name  <span style="color:red;"> * </span> </label>
+                     <select  class="form-control" name="hall_id" id="edit_hall_id" aria-label="Default select example">
+                     <option  disabled>Select your Hall</option>
+                      @foreach(hall() as $row)
+                        <option value="{{ $row->id }}">
+                           {{ $row->hall_name }}
+                        </option>
+                      @endforeach      
+                       
+                    </select>
             </div>
 
 
@@ -207,18 +243,28 @@
             </div>
 
             <div class="col-lg-6 ">
-                <label for="roll"> Departmnet </label>
-                <input type="text" name="departmnet" id="edit_departmnet" class="form-control" placeholder="" >
-                <p class="text-danger error_departmnet"></p>
+                <label for="roll"> Address </label>
+                <input type="text" name="address" id="edit_address" class="form-control" placeholder="" >
+                <p class="text-danger error_address"></p>
             </div>
 
             <div class="col-lg-6 ">
                   <label class=""> Member Status  <span style="color:red;"> * </span> </label>
-                     <select class="form-select" name="member_status" id="edit_member_status" aria-label="Default select example">
+                     <select class="form-select" name="status" id="edit_status" aria-label="Default select example">
                         <option value="1">Active</option>
                         <option value="0">Inactive</option>
                     </select>
             </div>
+
+
+            <div class="col-lg-6 ">
+                  <label class=""> E-mail Status  <span style="color:red;"> * </span> </label>
+                     <select class="form-select" name="email_verify_status" id="edit_email_verify_status" aria-label="Default select example">
+                        <option value="1">Active</option>
+                        <option value="0">Inactive</option>
+                    </select>
+            </div>
+
 
           </div>
 

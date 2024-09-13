@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class AdminMiddleware
+class StaffMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,9 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(admin_access()){
+         if(staff_access()){
             return $next($request);
-        }
-        
-        return redirect()->back();  
+         } 
+         return redirect()->back();  
     }
 }

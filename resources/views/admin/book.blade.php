@@ -47,6 +47,7 @@
                          <td> Publisher </td>
                          <td> Book Name </td>
                          <td> Book Assign </td>
+                          <td>Gender </td>
                          <td> Copy </td>
                          <td> Book Status</td>
                          <td> Edit </td>
@@ -88,6 +89,7 @@
             {data: 'publisher_name', name: 'publisher_name'},
             {data: 'title', name: 'title'},
             {data: 'name', name: 'name'},
+            {data: 'gender', name: 'gender'},
             {data: 'copy', name: 'copy'},
             {data: 'status', name: 'status'},
             {data: 'edit', name: 'edit', orderable: false, searchable: false},

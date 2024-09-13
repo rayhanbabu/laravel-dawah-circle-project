@@ -15,6 +15,15 @@ class Member extends Model
         'password',
         'email_verify_status',
         'application_category',
+        'registration',
+        'hall_id',
+        'department',
+        'address',
+        'phone',
+        'gender',
+        'member_category',
+        'ip_address',
+        'emailmd5',
     ];
 
 }

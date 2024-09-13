@@ -23,6 +23,9 @@ $(document).ready(function(){
                 { data: 'name', name: 'name' },
                 { data: 'email', name: 'email' },
                 { data: 'phone', name: 'phone' },
+                { data: 'registration', name: 'registration' },
+                { data: 'hall_name', name: 'hall_name' },
+                { data: 'address', name: 'address' },
                 { data: 'email_verify_status', name: 'email_verify_status' },
                 { data: 'status', name: 'status' },
                 { data: 'edit', name: 'edit', orderable: false, searchable: false },
@@ -90,15 +93,17 @@ $(document).ready(function(){
                   $('#success_message').text(response.message);
                 } else {
                   $('#edit_id').val(response.value.id);
-                  $('#edit_member_name').val(response.value.member_name);
+                  $('#edit_name').val(response.value.name);
                   $('#edit_designation').val(response.value.designation);
                   $('#edit_registration').val(response.value.registration);
                   $('#edit_email').val(response.value.email);
                   $('#edit_phone').val(response.value.phone);
-                  $('#edit_member_category').val(response.value.member_category);
-                  $('#edit_member_status').val(response.value.member_status);
+                  $('#edit_status').val(response.value.status);
+                  $('#edit_email_verify_status').val(response.value.email_verify_status);
                   $('#edit_gender').val(response.value.gender);
-                  $('#edit_dobirth').val(response.value.dobirth);
+                  $('#edit_address').val(response.value.address);
+                  $('#edit_hall_id').val(response.value.hall_id);
+               
                 }
               }
             });
@@ -128,7 +133,9 @@ $(document).ready(function(){
           success: function(response) {
             $("#edit_employee_btn").prop('disabled', false);
             if (response.status == 200) {
-                $('#success_message').html("");
+                $('#success_message').html();
+                $('#success_message').addClass('alert alert-success');
+                $('#success_message').text(response.message);
                 $("#EditModal").modal('hide');
                 $("#edit_employee_form")[0].reset();
                 fetchAll();

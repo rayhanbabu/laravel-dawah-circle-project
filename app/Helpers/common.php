@@ -5,6 +5,8 @@
     use App\Models\Event;
     use Illuminate\Support\Facades\Cookie;
     use App\Models\Hall;
+use Illuminate\Support\Facades\Auth;
+
        function prx($arr){
            echo "<pre>";
            print_r($arr);
@@ -14,12 +16,30 @@
        function SendEmail($email,$subject,$body,$otp,$name){
         $details = [
           'subject' => $subject,
-          'otp_code' =>$otp,
           'body' => $body,
+          'otp_code' =>$otp,
           'name' => $name,
         ];
        Mail::to($email)->send(new \App\Mail\LoginMail($details));
     }
+
+
+      function admin_access(){               
+         if(Auth::user()->userType=='Admin'){
+             return true;
+         }else{
+             return false;
+          }       
+      }
+
+      function staff_access(){               
+         if(Auth::user()->userType=='Admin' OR Auth::user()->userType=='Staff'){
+             return true;
+         }else{
+             return false;
+          }       
+      }
+
 
 
        function member_info(){

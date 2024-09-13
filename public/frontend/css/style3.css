@@ -448,3 +448,59 @@
     transform: translateY(-50%);
     cursor: pointer;
 }
+
+
+.custom-container {
+    padding: 40px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .custom-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow */
+    transition: 0.3s;
+    border-radius: 10px; /* Rounded corners */
+    text-align: center; /* Center content */
+    background-color: #f4f6f9; /* Light background */
+    padding: 20px;
+  }
+
+  .custom-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+  }
+
+  .custom-card-title {
+    font-size: 1.75rem;
+    color: #333; /* Title color */
+  }
+
+  .custom-counter {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #007bff; /* Counter color */
+    margin: 10px 0;
+  }
+
+  .custom-card-link {
+    color: #28a745; /* Link color */
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .custom-card-link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .custom-container {
+      padding: 20px;
+    }
+
+    .custom-card-title {
+      font-size: 1.5rem;
+    }
+
+    .custom-counter {
+      font-size: 2rem;
+    }
+  }

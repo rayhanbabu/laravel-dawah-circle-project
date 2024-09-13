@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> ঢাকা বিশ্ববিদ্যালয় দাওয়াহ সার্কেল</title>
-    <link rel="stylesheet" href="./frontend/css/style3.css">
+    <link rel="stylesheet" href="{{asset('frontend/css/style3.css')}}">
     
     <!-- Favicon -->
     <link href="{{asset('frontend/img/dawah.png')}}" rel="icon" />
@@ -17,6 +17,7 @@
       rel="stylesheet"
     />
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Icon Font Stylesheet -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
@@ -29,10 +30,25 @@
 
     <!-- Libraries Stylesheet -->
     <link href="{{asset('frontend/lib/animate/animate.min.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{asset('dashboardfornt/css/dataTables.bootstrap5.min.css')}}">
     <link href="{{asset('frontend/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{asset('frontend/css/bootstrap.min3.css')}}" rel="stylesheet" />
+
+
+     <!-- JavaScript Libraries -->
+     <script src="{{asset('dashboardfornt/js/jquery-3.5.1.js')}}"></script>
+    <script src="{{asset('dashboardfornt/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('dashboardfornt/js/jquery.dataTables.min.js')}}"></script>
+     <script src="{{asset('dashboardfornt/js/dataTables.bootstrap5.min.js')}}"></script>
+    <script src="{{asset('/frontend/lib/wow/wow.min.js')}}"></script>
+    <script src="{{asset('/frontend/lib/easing/easing.min.js')}}"></script>
+    <script src="{{asset('frontend/lib/waypoints/waypoints.min.js')}}"></script>
+    <script src="{{asset('frontend/lib/owlcarousel/owl.carousel.min.js')}}"></script>
+    <script src="{{asset('dashboardfornt/js/sweetalert.min.js')}}"></script>
+
+  
 
 </head>
 <body>
@@ -69,24 +85,40 @@
                  <a href="{{url('/')}}" class="nav-link @yield('home')">Home</a>
             </li>
 
-            <li class="nav-item dropdown">
+            @if(!member_info())
+            <li class="nav-item">
+                 <a href="{{url('/member/login')}}" class="nav-link @yield('login')">Login</a>
+            </li>
+
+            <li class="nav-item">
+                 <a href="{{url('/member/register')}}" class="nav-link @yield('register')">Register</a>
+            </li>
+            @else
+            <li class="nav-item">
+                 <a href="{{url('/member/dashboard')}}" class="nav-link @yield('dashbaord')">Dashboard</a>
+            </li>
+            @endif
+
+         @if(member_info() && member_info()['email'])
+              <li class="nav-item dropdown">
                 <a
                   href="#"
                   class="nav-link dropdown-toggle"
                   data-bs-toggle="dropdown"
-                >Appointment</a>
+                >Profile</a>
                 <ul class="dropdown-menu">
-                  <li><a href="./login3.html" class="dropdown-item">login</a></li>
-                  <li><a href="./book_card.html" class="dropdown-item">Book Card</a></li>
-                  <li><a href="./book_details.html" class="dropdown-item">Book Detail</a></li>
-                  <li><a href="./register.html" class="dropdown-item">Registration</a></li>
-                  <li><a href="./appointment.html" class="dropdown-item">Appointment</a></li>
-                  <li><a href="./appointmentDetails.html" class="dropdown-item">Appointment Details</a></li>
+                  <li><a href="#" class="dropdown-item"> {{ member_info()['name'] }} 
+                  </a></li>
+                  <li><a href="{{url('/member/book_order')}}" class="dropdown-item">Book Order</a></li>
+                  <li><a href="./book_details.html" class="dropdown-item">My Order Books</a></li>
+               
+                  <li><a href="{{url('member/logout')}}" class="dropdown-item">Logout</a></li>
                  
                 </ul>
               </li>
             <!-- Repeat similar structure for other dropdowns -->
-       
+           @endif
+
           </ul>
         </div>
       </div>
@@ -200,13 +232,7 @@
     
 
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{asset('/frontend/lib/wow/wow.min.js')}}"></script>
-    <script src="{{asset('/frontend/lib/easing/easing.min.js')}}"></script>
-    <script src="{{asset('frontend/lib/waypoints/waypoints.min.js')}}"></script>
-    <script src="{{asset('frontend/lib/owlcarousel/owl.carousel.min.js')}}"></script>
+   
 
   
     <script src="{{asset('frontend/js/main.js')}}"></script>

@@ -17,7 +17,9 @@ class MemberController extends Controller
     public function member(Request $request){
 
       if ($request->ajax()) {
-        $data = Member::latest()->get();
+        $data = Member::leftjoin('halls','halls.id','=','members.hall_id') 
+        ->select('halls.hall_name','members.*')
+        ->latest()->get();
         return Datatables::of($data)
            ->addIndexColumn()
           ->addColumn('status', function($row){
@@ -50,8 +52,10 @@ class MemberController extends Controller
               $request->all(),
               [
                   'name'=> 'required',
+                  'hall_id' => 'required',
                   'email'=>'required|unique:members,email',
                   'phone'=>'required|unique:members,phone',
+                  'registration'=>'required|unique:members,registration',
                   'password'=>'required|regex:/^[a-zA-Z\d]*$/'
                ]);
   
@@ -64,8 +68,13 @@ class MemberController extends Controller
               $model = new Member;
               $model->name = $request->input('name');
               $model->email = $request->input('email');
+              $model->emailmd5 = md5($request->input('email'));
               $model->phone = $request->input('phone');
-              $model->application_category ='Offline';
+              $model->member_category ='Offline';
+              $model->registration = $request->input('registration');
+              $model->address = $request->input('address');
+              $model->gender = $request->input('gender');
+              $model->hall_id = $request->input('hall_id');
               $model->email_verify_status =1;
               $model->password = Hash::make($request->password);
               $model->created_by=$user->id;
@@ -79,10 +88,10 @@ class MemberController extends Controller
       }
 
 
-      public function ambulance_edit(Request $request)
+      public function edit(Request $request)
         {
           $id = $request->id;
-          $data = Ambulance::find($id);
+          $data = Member::find($id);
             return response()->json([
                 'status' => 200,
                 'value' => $data,
@@ -97,11 +106,10 @@ class MemberController extends Controller
   
           $user=Auth::user();
           $validator = \Validator::make($request->all(), [
-              'member_name' => 'required',
-              'designation' => 'required',
-              'member_category' => 'required',
-              'phone' => 'required',
+              'name' => 'required',
+              'hall_id' => 'required',
               'image' => 'image|mimes:jpeg,png,jpg|max:400',
+              'phone' => 'required|unique:members,phone,' . $request->input('edit_id'),
               'registration' => 'required|unique:members,registration,' . $request->input('edit_id'),
               'email' => 'required|unique:members,email,' . $request->input('edit_id'),
           ]);
@@ -115,17 +123,15 @@ class MemberController extends Controller
           } else {
               $model = Member::find($request->input('edit_id'));
               if ($model) {
-                $model->member_name = $request->input('member_name');
-                $model->designation = $request->input('designation');
+                $model->name = $request->input('name');
                 $model->email = $request->input('email');
-                $model->member_category = $request->input('member_category');
                 $model->phone = $request->input('phone');
-                $model->application_type ='Offline';
                 $model->registration = $request->input('registration');
-                $model->department = $request->input('department');
+                $model->address = $request->input('address');
                 $model->gender = $request->input('gender');
-                $model->dobirth = $request->input('dobirth');
-                $model->member_status = $request->input('member_status');
+                $model->hall_id = $request->input('hall_id');
+                $model->status = $request->input('status');
+                $model->email_verify_status = $request->input('email_verify_status');
                 $model->updated_by=$user->id;
   
                   if ($request->hasfile('image')) {
