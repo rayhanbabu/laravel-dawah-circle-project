@@ -168,7 +168,7 @@
             <a class="btn btn-link" href="{{url('#')}}">Contact Us</a>
             <a class="btn btn-link" href="{{url('#')}}">Our Services</a>
             <a class="btn btn-link" href="{{url('#')}}">Terms & Condition</a>
-            <a class="btn btn-link" href="{{url('#')}}">Support</a>
+            <a class="btn btn-link" href="{{url('/login')}}">Staff Login</a>
           </div>
           <div class="col-lg-3 col-md-6">
             <h4 class="text-light mb-4">Newsletter</h4>
