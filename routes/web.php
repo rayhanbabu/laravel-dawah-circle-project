@@ -75,9 +75,6 @@ use App\Http\Controllers\Admin\NoticeController;
             Route::post('/admin/department/insert', [DepartmentController::class,'department_insert']);
             Route::get('/admin/department/delete/{id}', [DepartmentController::class,'department_delete']);
 
-
-           
-
            //event  
            Route::get('/admin/event', [EventController::class,'event']);
            Route::get('/admin/event/manage', [EventController::class,'event_manage']);
@@ -85,9 +82,6 @@ use App\Http\Controllers\Admin\NoticeController;
            Route::post('/admin/event/insert', [EventController::class,'event_insert']);
            Route::get('/admin/event/delete/{id}', [EventController::class,'event_delete']);
            
-           
-          
-
           //notice 
           Route::get('/admin/notice/{event_id}', [NoticeController::class,'notice']);
           Route::get('/admin/notice/manage/{event_id}', [NoticeController::class,'notice_manage']);
@@ -140,6 +134,8 @@ use App\Http\Controllers\Admin\NoticeController;
            Route::get('/admin/book/manage/{id}', [BookController::class,'book_manage']);
            Route::post('/admin/book/insert', [BookController::class,'book_insert']);
            Route::get('/admin/book/delete/{id}', [BookController::class,'book_delete']);
+           Route::get('/admin/report', [BookController::class,'admin_report']);
+           Route::get('/admin/book/search', [BookController::class,'book_search']);
 
            Route::get('/admin/book_copy/manage/{id}', [BookController::class,'book_copy_manage']);
            Route::post('/admin/book_copy/insert', [BookController::class,'book_copy_insert']);
@@ -153,6 +149,7 @@ use App\Http\Controllers\Admin\NoticeController;
 
           });
 
+
         //Member login
         Route::get('/member/login',[MemberAuthController::class,'login'])->middleware('MemberTokenExist');
         Route::get('/member/register',[MemberAuthController::class,'register'])->middleware('MemberTokenExist');
@@ -160,15 +157,18 @@ use App\Http\Controllers\Admin\NoticeController;
         Route::post('/member/register_insert',[MemberAuthController::class,'register_insert']);
         Route::post('/member/login_insert',[MemberAuthController::class,'login_insert']);
 
+
         Route::get('/book',[HomeController::class,'book']);
         Route::get('/notice_detail/{id}', [HomeController::class, 'notice_detail']);
        
-          Route::middleware('MemberToken')->group(function(){
+      
+        Route::middleware('MemberToken')->group(function(){
               Route::get('/member/logout',[MemberAuthController::class,'logout']);
               Route::get('/member/dashboard',[MemberAuthController::class,'dashboard']);
+              Route::get('/book_detail/{book_code}',[HomeController::class,'book_detail']);
               Route::get('/member/book_order',[HomeController::class,'book_order']);
               Route::post('/member/book_request',[HomeController::class,'book_request']);
-         });  
+        });  
 
     
     

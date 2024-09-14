@@ -8,7 +8,7 @@
 <div class="card mt-2 mb-2 shadow-sm">
   <div class="card-header">
   <div class="row ">
-               <div class="col-8"> <h5 class="mt-0"> Book Order  </h5></div>
+               <div class="col-8"> <h5 class="mt-0">My Book Order  </h5></div>
                      <div class="col-2">
                          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                        
@@ -35,11 +35,14 @@
                      <tr>
                          <td> Book Id </td>
                          <td> Title  </td>
-                         <td> Author  </td>
-                         <td> Category  </td>
-                         <td> Publisher  </td>
-                         <td>  Status</td>
-                         <td> Request </td>
+                         <td> Location </td>
+                         <td> Contact Info </td>
+                         <td> Request Time  </td>
+                         <td> Issue Time  </td>
+                         <td> Return Time  </td>
+                         <td> Probabliy Return Day</td>
+                         <td> Status</td>
+                     
                       
                       </tr>
                    </thead>

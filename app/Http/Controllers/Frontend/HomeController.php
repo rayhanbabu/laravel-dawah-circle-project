@@ -46,26 +46,44 @@ class HomeController extends Controller
         }
 
 
+        public function book_detail(Request $request){
+              
+              $book_code=$request->book_code;
+              $gender = $request->header('gender');
+              $book=DB::table('books')->where('book_code',$book_code)->select('book_code',DB::raw('count(id) as id_total')
+              ,DB::raw('max(title) as title') , DB::raw('max(image) as image') , DB::raw('max(page) as page')
+              ,DB::raw('max(lang) as lang'),DB::raw('max(author_id) as author_id'))->orderBy('book_code','asc')
+              ->groupBy('book_code')->first();
+
+               $book_detail=Book::leftjoin('users','users.id','=','books.user_id') 
+                 ->leftjoin('halls','halls.id','=','users.hall_id') 
+                 ->where('users.gender',$gender)->where('books.book_code',$book_code)->where('books.book_status','!=',0) 
+                 ->select('users.name','users.gender','users.name','halls.hall_name','books.*')->get();
+
+              return view('frontend.book_detail',['book'=>$book,'book_detail'=>$book_detail]);
+         }
+
         public function book_order(Request $request){
 
-            $gender = $request->header('gender');
+            $member_id = $request->header('member_id');
             if ($request->ajax()) {
-                $data=Book::leftjoin('authors','authors.id','=','books.author_id') 
-                 ->leftjoin('categories','categories.id','=','books.category_id') 
-                 ->leftjoin('publishers','publishers.id','=','books.publisher_id')
-                 ->where('books.gender',$gender)->where('books.book_status','!=',0) 
-                 ->select('authors.author_name','categories.category_name'
-                 ,'publishers.publisher_name','books.*')->latest()->get();
+                $data = Issue::leftjoin('members','members.id','=','issues.member_id') 
+                    ->leftjoin('users','users.id','=','issues.user_id')
+                    ->leftjoin('books','books.book_id','=','issues.book_id')
+                    ->leftjoin('halls','halls.id','=','users.hall_id')
+                    ->where('issues.member_id',$member_id)
+                    ->select('members.name as member_name','members.phone','halls.hall_name'
+                    ,'users.name as user_name','users.name as user_name','books.title','issues.*')->latest()->get();
                  return Datatables::of($data)
                     ->addIndexColumn()
                   
                     ->addColumn('status', function($row) {
                         // Check the book status and return the corresponding button
-                        if ($row->book_status == 1) {
-                            $statusBtn = '<button class="btn btn-success btn-sm">Available</button>';
-                        } elseif ($row->book_status == 2) {
-                            $statusBtn = '<button class="btn btn-danger btn-sm">Booked</button>';
-                        } elseif ($row->book_status == 3) {
+                        if ($row->issue_status == 1) {
+                            $statusBtn = '<button class="btn btn-success btn-sm">Return</button>';
+                        } elseif ($row->issue_status == 2) {
+                            $statusBtn = '<button class="btn btn-danger btn-sm">Issue</button>';
+                        } elseif ($row->issue_status == 3) {
                             $statusBtn = '<button class="btn btn-warning btn-sm">Requested</button>';
                         } else {
                             $statusBtn = '<button class="btn btn-secondary btn-sm">Unknown</button>';
@@ -73,18 +91,8 @@ class HomeController extends Controller
                     
                         return $statusBtn;
                     })
-                    ->addColumn('delete', function($row) {
-                        // Check if the book_status is 1
-                        if ($row->book_status == 1) {
-                            $btn = '<a href="javascript:void(0);" data-book_status="' . $row->book_status . '" data-book_id="' . $row->book_id . '" class="delete btn btn-primary btn-sm">Request Now</a>';
-                            return $btn;
-                        }
                     
-                        // Return null if book_status is not 1
-                        return null;
-                    })
-                 
-                  ->rawColumns(['status','delete'])
+                  ->rawColumns(['status'])
                   ->make(true);
                }
              return view('frontend.book_order');  
@@ -94,14 +102,17 @@ class HomeController extends Controller
         public function book_request(Request $request){
               
              $book_id=$request->book_id;
-             $book_status=$request->book_status;
              $member_id = $request->header('member_id');
              $gender = $request->header('gender');
+             $return_day=$request->return_day;
 
              $date= date("Y-m-d");
              $time=date("Y-m-d H:i:s");
 
-             $book=Book::where('book_id',$book_id)->first();
+           
+             $book=Book::leftjoin('users','users.id','=','books.user_id') 
+              ->where('book_id',$book_id)->select('users.gender','users.name','books.*')->first();
+         
 
              if($book->book_status==1 && $book->gender==$gender){
               
@@ -113,6 +124,7 @@ class HomeController extends Controller
                 $model->issue_status=3;
                 $model->request_time=$time;
                 $model->request_date=$date;
+                $model->return_day=$return_day;
                 $model->save();
    
    
@@ -159,11 +171,11 @@ class HomeController extends Controller
                    ->addColumn('status', function($row) {
                      // Check the book status and return the corresponding button
                      if ($row->issue_status == 1) {
-                         $statusBtn = '<button class="btn btn-success btn-sm">Return</button>';
+                         $statusBtn = '<button class="btn btn-success btn-sm"> Return </button>';
                      } elseif ($row->issue_status == 2) {
-                         $statusBtn = '<button class="btn btn-danger btn-sm">Booked</button>';
+                         $statusBtn = '<button class="btn btn-danger btn-sm"> Issued </button>';
                      } elseif ($row->issue_status == 3) {
-                         $statusBtn = '<button class="btn btn-warning btn-sm">Requested</button>';
+                         $statusBtn = '<button class="btn btn-warning btn-sm"> Requested </button>';
                      } else {
                          $statusBtn = '<button class="btn btn-secondary btn-sm">Unknown</button>';
                      }
@@ -182,8 +194,6 @@ class HomeController extends Controller
                 return view('admin.issue');  
             }
 
-
-      
 
             public function issue_edit(Request $request)
             {
@@ -204,6 +214,7 @@ class HomeController extends Controller
                  ]);
                  $user=Auth::user();
                  $status=$request->input('issue_status');
+                 $comment=$request->input('comment');
                  $date= date("Y-m-d");
                  $time=date("Y-m-d H:i:s");
 
@@ -223,8 +234,11 @@ class HomeController extends Controller
                             $model->issue_date = $date;
                         }
                        $model->issue_status = $status;
+                       $model->comment =$comment;
                        $model->updated_by = $user->id;
                        $model->update();
+
+                       DB::update("update books set book_status ='$status' where book_id = '$model->book_id'");
 
                             return response()->json([
                                'status' => 200,

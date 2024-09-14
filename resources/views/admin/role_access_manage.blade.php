@@ -95,13 +95,15 @@
                  </select>
      </div>
            
-            
-    <div class="form-group col-sm-4 my-2">
-        <label class=""><b> User Type <span style="color:red;"> * </span> </b></label>
-         <select class="form-select" name="userType" id="userType" aria-label="Default select example">
-             <option value="Staff" {{ $userType == 'Staff' ? 'selected' : '' }}>Staff</option>
-         </select>
-     </div>
+    
+    
+       <div class="form-group col-sm-4 my-2">
+           <label class=""><b> User Type <span style="color:red;"> * </span> </b></label>
+           <select class="form-select" name="userType" id="userType" aria-label="Default select example">
+               <option value="Staff" {{ $userType == 'Staff' ? 'selected' : '' }}>Staff</option>
+           </select>
+       </div>
+  
 
     
            <div class="form-group col-sm-4  my-2">

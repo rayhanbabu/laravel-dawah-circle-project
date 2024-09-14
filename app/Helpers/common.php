@@ -1,5 +1,7 @@
 <?php
-    use Illuminate\Support\Facades\DB;
+
+use App\Models\Author;
+use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Mail;
     use App\Models\Department;
     use App\Models\Event;
@@ -25,7 +27,7 @@ use Illuminate\Support\Facades\Auth;
 
 
       function admin_access(){               
-         if(Auth::user()->userType=='Admin'){
+         if(Auth::check() && (Auth::user()->userType == 'Admin')){
              return true;
          }else{
              return false;
@@ -33,7 +35,7 @@ use Illuminate\Support\Facades\Auth;
       }
 
       function staff_access(){               
-         if(Auth::user()->userType=='Admin' OR Auth::user()->userType=='Staff'){
+        if (Auth::check() && (Auth::user()->userType == 'Admin' || Auth::user()->userType == 'Staff')) {
              return true;
          }else{
              return false;
@@ -80,6 +82,11 @@ use Illuminate\Support\Facades\Auth;
 
      function event_id_detail($event_id){
         $event=Event::find($event_id);
+        return $event;
+     }
+
+     function author_id_detail($id){
+        $event=Author::find($id);
         return $event;
      }
        

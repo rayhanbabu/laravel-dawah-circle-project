@@ -144,6 +144,13 @@
               Book Issue
        </a>
 
+
+       <a class="nav-link @yield('report') " href="{{url('admin/report')}}">
+          <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+              Book Report
+       </a>
+
+
      
   
  

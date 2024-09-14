@@ -6,7 +6,7 @@
 <div class="card mt-2 mb-2 shadow-sm">
    <div class="card-header">
        <div class="row ">
-               <div class="col-8"> <h5 class="mt-0"> book @if(!$id) Add @else Edit @endif </h5></div>
+               <div class="col-8"> <h5 class="mt-0"> Book @if(!$id) Add @else Edit @endif </h5></div>
                      <div class="col-2">
                          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                              
@@ -89,6 +89,7 @@
            </div> 
 
 
+           @if(Auth::user()->userType=='Admin')
            <div class="form-group col-sm-3 my-2">
                <label class=""><b> User Name <span style="color:red;"> * </span></b></label><br>
                  <select name="user_id" id="user_id"  class="form-control js-example-disabled-results" style="max-width:300px;" required>
@@ -100,6 +101,9 @@
                      @endforeach
                  </select>
            </div> 
+       @else
+             <input type="hidden" name="user_id"  value="{{Auth::user()->id}}" class="form-control" >
+      @endif
 
 
           <div class="form-group col-sm-4 my-2">
@@ -128,7 +132,14 @@
           </div>
             
 
-
+          <div class="form-group col-sm-2  my-2">
+                <label class=""><b>Book Language <span style="color:red;"> * </span> </b></label>
+                 <select class="form-select form-select-sm" name="lang"  aria-label="Default select example" required>
+                      <option value="Bangla" {{ $lang == 'Bangla' ? 'selected' : '' }}> Bangla </option>
+                      <option value="English" {{ $lang == 'English' ? 'selected' : '' }}> English </option>
+                      <option value="Arabic" {{ $lang == 'Arabic' ? 'selected' : '' }}> Arabic </option>
+                 </select>
+           </div> 
           
 
 

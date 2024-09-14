@@ -35,7 +35,7 @@
           <div class="card-body">
             <h5 class="card-title text-center">{{ $row->title }}</h5>
             <p class="card-text text-center">
-              <a href="{{url('member/book_order')}}" class="btn btn-primary"> বুকিং দিন  </a>
+              <a href="{{url('book_detail/'.$row->book_code)}}" class="btn btn-primary"> বিস্তারিত দেখুন  </a>
             </p>
           </div>
         </div>

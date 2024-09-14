@@ -29,6 +29,8 @@ $(document).ready(function(){
                 { data: 'return_time', name: 'return_time' },
                 { data: 'status', name: 'status' },
                 { data: 'edit', name: 'edit', orderable: false, searchable: false },
+                { data: 'return_day', name: 'return_day' },
+                { data: 'comment', name: 'comment' },
                 { data: 'user_name', name: 'user_name' },
             ]
         });
@@ -50,9 +52,9 @@ $(document).ready(function(){
                   $('#success_message').addClass('alert alert-danger');
                   $('#success_message').text(response.message);
                 } else {
-                  $('#edit_id').val(response.value.id);
-                  $('#edit_issue_status').val(response.value.issue_status);
-              
+                   $('#edit_id').val(response.value.id);
+                   $('#edit_issue_status').val(response.value.issue_status);
+                   $('#edit_comment').val(response.value.comment);
                 }
               }
             });

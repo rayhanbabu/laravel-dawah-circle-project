@@ -37,12 +37,14 @@
                          <td> Name </td>
                          <td> Phone </td>
                          <td> Book name </td>
-                         <td> Title </td>
+                         <td> Author </td>
                          <td> Retuested Time </td>
                          <td> Booking Time </td>
-                         <td> Return Time </td>
+                         <td> Return Time </td> 
                          <td> Status </td>
                          <td> Edit </td>
+                         <td> probably Return  </td>
+                         <td> Comment </td>
                          <td> Staff Name </td>
                       </tr>
                    </thead>
@@ -90,11 +92,12 @@
                     </select>
             </div>
 
+            <div class="col-lg-12 ">
+                  <label class=""> Comment (If Any)  </label>
+                  <input type="text" class="form-control" name="comment" id="edit_comment"> 
+            </div>
 
           </div>
-
-
-
           <div class="mt-2" id="avatar"> </div>
 
           <div class="loader">

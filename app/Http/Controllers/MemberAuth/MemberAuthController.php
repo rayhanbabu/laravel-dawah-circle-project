@@ -54,7 +54,7 @@ class MemberAuthController extends Controller
           $request->validate([
               'name' => ['required', 'string', 'max:255'],
               'hall_id' => ['required', 'string', 'max:255'],
-              'registration' => ['required', 'string', 'max:10'],
+              'registration' => ['required', 'string', 'min:10', 'max:15', 'unique:'.Member::class],
               'phone' => ['required', 'string', 'min:10', 'max:15', 'unique:'.Member::class],
               'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Member::class],
               'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -79,7 +79,7 @@ class MemberAuthController extends Controller
           $body = 'Please Click URL and verify your email to complete your account setup.';
           $link=URL::to('email_verify/'.md5($request->input('email')));
          
-          SendEmail($request->email, $subject, $body, $link, "ANCOVA");
+          SendEmail($request->email, $subject, $body, $link, "Dhaka University Dawah Circle");
 
   
           return redirect('member/login')->with('success','Registration Successfully. Please verify your email address using the link sent to '.$request->email);

@@ -21,6 +21,7 @@ class AdminMiddleware
             return $next($request);
         }
         
-        return redirect()->back();  
+        //return redirect()->back();  
+        return redirect('/login');  
     }
 }

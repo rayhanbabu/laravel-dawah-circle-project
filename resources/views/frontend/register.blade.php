@@ -1,6 +1,6 @@
 @extends('frontend/headerhome')
 @section('page_title','Admin Dashboard')
-@section('login','active')
+@section('register','active')
 @section('homecontent')
 
 

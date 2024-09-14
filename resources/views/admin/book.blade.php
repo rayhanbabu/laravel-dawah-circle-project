@@ -47,11 +47,13 @@
                          <td> Publisher </td>
                          <td> Book Name </td>
                          <td> Book Assign </td>
-                          <td>Gender </td>
                          <td> Copy </td>
                          <td> Book Status</td>
                          <td> Edit </td>
                          <td> Delete </td>
+                         <td> Hall Name </td>
+                         <td> Page </td>
+                         <td> Language </td>
                       </tr>
                    </thead>
                    <tbody>
@@ -89,11 +91,13 @@
             {data: 'publisher_name', name: 'publisher_name'},
             {data: 'title', name: 'title'},
             {data: 'name', name: 'name'},
-            {data: 'gender', name: 'gender'},
             {data: 'copy', name: 'copy'},
             {data: 'status', name: 'status'},
-            {data: 'edit', name: 'edit', orderable: false, searchable: false},
+            {data: 'edit', name: 'edit'},
             {data: 'delete', name: 'delete', orderable: false, searchable: false},
+            {data: 'hall_name', name: 'hall_name'},
+            {data: 'page', name: 'page'},
+            {data: 'lang', name: 'lang'},
        ]
    });
 });

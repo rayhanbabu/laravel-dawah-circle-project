@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\Issue;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -16,26 +17,20 @@ class BookController extends Controller
 {
     public function book(Request $request){
 
-        $auth=Auth::user();
+       
         if ($request->ajax()){
 
-          if($auth->userType=='Admin'){
+       
              $data = Book::leftjoin('users','users.id','=','books.user_id') 
              ->leftjoin('authors','authors.id','=','books.author_id')
              ->leftjoin('publishers','publishers.id','=','books.publisher_id')
              ->leftjoin('categories','categories.id','=','books.category_id')
-             ->select('users.name','authors.author_name','publishers.publisher_name'
-             ,'categories.category_name','books.*')->latest()->get();
-          }else{
-            $data = Book::leftjoin('users','users.id','=','books.user_id') 
-            ->leftjoin('authors','authors.id','=','books.author_id')
-            ->leftjoin('publishers','publishers.id','=','books.publisher_id')
-            ->leftjoin('categories','categories.id','=','books.category_id')
-            ->where('user_id',$auth->id)
-            ->select('users.name','authors.author_name','publishers.publisher_name'
-            ,'categories.category_name','books.*')->latest()->get();
-          }
-           
+             ->leftjoin('halls','halls.id','=','users.hall_id') 
+             ->select('users.hall_id','users.name','authors.author_name','publishers.publisher_name'
+             ,'categories.category_name','halls.hall_name','books.*')->latest()->get();
+         
+             $auth_id=Auth::user()->id;
+             $userType=Auth::user()->userType;
              return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function($row){
@@ -44,29 +39,39 @@ class BookController extends Controller
                 })
                 ->addColumn('status', function($row) {
                   if ($row->book_status == '1') {
-                      $statusBtn = '<button class="btn btn-success btn-sm">Available</button>';
-                  } elseif ($row->book_status == '2') {
+                       $statusBtn = '<button class="btn btn-success btn-sm">Available</button>';
+                   } elseif ($row->book_status == '2') {
                       $statusBtn = '<button class="btn btn-danger btn-sm">Booked</button>';
-                  } elseif ($row->book_status == '3') {
+                   } elseif ($row->book_status == '3') {
                       $statusBtn = '<button class="btn btn-warning btn-sm">Request</button>';
-                  } else {
+                   } else {
                       $statusBtn = '<button class="btn btn-secondary btn-sm">Inactive</button>';
-                  }
+                   }
                   return $statusBtn;
               })
              
-                ->addColumn('edit', function($row){
-                   $btn = '<a href="/admin/book/manage/'.$row->id.'" class="edit btn btn-primary btn-sm">Edit</a>';
-                   return $btn;
-               })
-               ->addColumn('copy', function($row){
-                $btn = '<a href="/admin/book_copy/manage/'.$row->id.'" class="edit btn btn-info btn-sm">Copy</a>';
-                return $btn;
-            })
-               ->addColumn('delete', function($row){
-                 $btn = '<a href="/admin/book/delete/'.$row->id.'" onclick="return confirm(\'Are you sure you want to delete this item?\')" class="delete btn btn-danger btn-sm">Delete</a>';
-                 return $btn;
+              ->addColumn('edit', function($row) use ($auth_id,$userType) {
+                if ($row->user_id == $auth_id OR $userType=="Admin") { // Assuming $user_id is passed in the closure
+                     $btn = '<a href="/admin/book/manage/'.$row->id.'" class="edit btn btn-primary btn-sm">Edit</a>';
+                     return $btn;
+                 } else {
+                    return null; // No button shown if user ID doesn't match
+                 }
              })
+               ->addColumn('copy', function($row){
+                  $btn = '<a href="/admin/book_copy/manage/'.$row->id.'" class="edit btn btn-info btn-sm">Copy</a>';
+                  return $btn;
+               })
+               ->addColumn('delete', function($row) use ($auth_id,$userType) {
+                if ($row->user_id == $auth_id OR $userType=="Admin") { // Assuming $user_id is passed in the closure
+                    $btn = '<a href="/admin/book/delete/'.$row->id.'" 
+                            onclick="return confirm(\'Are you sure you want to delete this item?\')" 
+                            class="delete btn btn-danger btn-sm">Delete</a>';
+                    return $btn;
+                } else {
+                    return null; // No button if user ID doesn't match
+                }
+            })
                ->rawColumns(['image','copy','status','edit','delete'])
                ->make(true);
             }
@@ -92,6 +97,7 @@ class BookController extends Controller
                $result['serial']=$arr['0']->serial; 
                $result['page']=$arr['0']->page;
                $result['book_copy']=$arr['0']->book_copy;
+               $result['lang']=$arr['0']->lang;
           } else {
             $result['id']='';
             $result['user_id']='';
@@ -104,6 +110,7 @@ class BookController extends Controller
             $result['serial']=''; 
             $result['page']='';
             $result['book_copy']='';
+            $result['lang']='';
           }
 
             return view('admin.book_manage',$result);  
@@ -129,7 +136,7 @@ class BookController extends Controller
               ]);
           }
 
-          $auth=Auth::user();
+           $auth=Auth::user();
        if($request->post('id')>0){
            $model=Book::find($request->post('id'));
            $model->updated_by=$auth->id;
@@ -189,7 +196,7 @@ class BookController extends Controller
           $model->page=$request->input('page');
           $model->desc=$request->input('desc');
           $model->serial=$request->input('serial');
-          $model->gender=$user->gender;
+          $model->lang=$request->input('lang');
           $model->save();
 
           return redirect('/admin/book')->with('success', 'Changes saved successfully.');
@@ -206,9 +213,8 @@ class BookController extends Controller
 
       public function book_copy_insert(Request $request)
        {
-           $book_status=$request->input('book_status');
+        
            $id=$request->input('id');
-           $user_id=$request->input('user_id');
            $auth=Auth::user();
 
            $book=Book::find($id);
@@ -226,35 +232,56 @@ class BookController extends Controller
            $model->book_code=$book_code;
            $model->book_id=$book_id;
 
-        $user=User::find($user_id);
+        
       
         $model->title=$book->title;
         $model->author_id=$book->author_id;
-        $model->user_id=$user->id;
+        $model->user_id=$auth->id;
         $model->category_id=$book->category_id;
         $model->book_status=$request->input('book_status');
         $model->publisher_id=$book->publisher_id;
         $model->page=$book->page;
         $model->desc=$book->desc;
         $model->serial=$book->serial;
-        $model->gender=$user->gender;
+        $model->gender=$auth->gender;
+        $model->lang=$book->lang;
         $model->save();
 
         return redirect('/admin/book')->with('success', 'Changes saved successfully.');
-
-
-           
 
         }
 
          public function book_delete(Request $request,$id){  
           $model = book::find($id);
           $filePath = public_path('uploads/admin') . '/' . $model->image;
-          if (File::exists($filePath)) {
-              File::delete($filePath);
-          }
+           if (File::exists($filePath)) {
+               File::delete($filePath);
+           }
           $model->delete();
+        
               return back()->with('success', 'Data deleted successfully.');
+          }
+
+
+          public function admin_report(Request $request){
+                 
+              return view('admin.report');
+          }
+
+          public function book_search(Request $request){
+            $phone = $request->get('phone');
+
+            // Query to search by phone number
+            $data = Issue::leftjoin('members','members.id','=','issues.member_id') 
+            ->leftjoin('users','users.id','=','issues.user_id')
+            ->leftjoin('books','books.book_id','=','issues.book_id')
+            ->leftjoin('halls','halls.id','=','users.hall_id')
+            ->where('members.phone', 'like', '%' . $phone . '%')
+            ->select('members.name as member_name','members.phone as phone','halls.hall_name'
+            ,'users.name as user_name','users.name as user_name','books.title','issues.*')->get();
+        
+            // Return the data as JSON to the frontend
+            return response()->json($data);
           }
 
     }

@@ -49,7 +49,7 @@
                          <td> Name </td>
                          <td> User Type</td>
                          <td> Hall </td>
-                         <td> Designation</td>
+                         <td> Gender</td>
                          <td> Email</td>
                          <td> Phone </td>
                          <td> Status </td>
@@ -91,7 +91,7 @@
             {data: 'name', name: 'name'},
             {data: 'userType', name: 'userType'},
             {data: 'hall_name', name: 'hall_name'},
-            {data: 'designation', name: 'designation'},
+            {data: 'gender', name: 'gender'},
             {data: 'email', name: 'email'},
             {data: 'phone', name: 'phone'},
             {data: 'status', name: 'status'},

@@ -70,7 +70,7 @@
                 </select>
            </div> 
 
-
+       @if(Auth::user()->userType=='Admin')
            <div class="form-group col-sm-3 my-2">
                <label class=""><b> User Name <span style="color:red;"> * </span></b></label><br>
                  <select name="user_id" id="user_id"  class="form-control js-example-disabled-results" style="max-width:300px;" required>
@@ -81,7 +81,10 @@
                        </option>
                      @endforeach
                  </select>
-           </div> 
+           </div>
+           @else
+              <input type="hidden" name="user_id"  value="{{Auth::user()->id}}" class="form-control" required>
+           @endif
 
       
        </div>

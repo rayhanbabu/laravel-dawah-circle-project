@@ -109,8 +109,8 @@
                 <ul class="dropdown-menu">
                   <li><a href="#" class="dropdown-item"> {{ member_info()['name'] }} 
                   </a></li>
-                  <li><a href="{{url('/member/book_order')}}" class="dropdown-item">Book Order</a></li>
-                  <li><a href="./book_details.html" class="dropdown-item">My Order Books</a></li>
+                  <li><a href="{{url('/book')}}" class="dropdown-item">Book Order</a></li>
+                  <li><a href="{{url('member/book_order')}}" class="dropdown-item">My Order Books</a></li>
                
                   <li><a href="{{url('member/logout')}}" class="dropdown-item">Logout</a></li>
                  
