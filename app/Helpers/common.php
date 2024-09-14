@@ -85,10 +85,16 @@ use Illuminate\Support\Facades\Auth;
         return $event;
      }
 
-     function author_id_detail($id){
-        $event=Author::find($id);
-        return $event;
-     }
+     function author_id_detail($id) {
+        $event = Author::find($id);
+        
+        // Check if the author exists and if author_name is not null or empty
+        if ($event && !empty($event->author_name)) {
+            return $event->author_name;
+        } else {
+            return "N/A"; // Default value when author_name is null or empty
+        }
+    }
        
   
     

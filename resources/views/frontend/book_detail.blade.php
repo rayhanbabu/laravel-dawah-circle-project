@@ -26,7 +26,7 @@
                       <br><br>
                       <h4 class="display-8"> {{$book->title}}</h4>
                       <h6 class="display-10">
-                        Author: {{ author_id_detail($book->author_id)->author_name}}
+                        Author: {{ author_id_detail($book->author_id)}}
                       </h6>
                      
              
