@@ -23,7 +23,6 @@ $(document).ready(function(){
                 { data: 'member_name', name: 'member_name' },
                 { data: 'phone', name: 'phone' },
                 { data: 'title', name: 'title' },
-                { data: 'author_name', name: 'author_name' },
                 { data: 'request_time', name: 'request_time' },
                 { data: 'issue_time', name: 'issue_time' },
                 { data: 'return_time', name: 'return_time' },

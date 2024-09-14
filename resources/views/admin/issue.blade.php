@@ -37,7 +37,6 @@
                          <td> Name </td>
                          <td> Phone </td>
                          <td> Book name </td>
-                         <td> Author </td>
                          <td> Retuested Time </td>
                          <td> Booking Time </td>
                          <td> Return Time </td> 
