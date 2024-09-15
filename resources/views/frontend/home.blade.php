@@ -4,6 +4,105 @@
 @section('homecontent')
 
 
+
+
+
+<div class="container mt-5 shadow p-4 rounded">
+    <h3 class="mb-4">Registration Form</h3>
+    <form method="POST" action="{{ url('event/event_registration') }}">
+    @csrf
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" value="{{ old('name') }}" id="name" placeholder="Enter your name" required>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <label for="registration" class="form-label"> Du Registration Number</label>
+                <input type="text" class="form-control" value="{{ old('registration') }}" id="registration" name="registration"
+                 placeholder="Enter registration number"
+                 pattern="\d{10}" 
+                 maxlength="10" 
+                 title="Please enter a valid 10-digit registration number"
+                 required />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" value="{{ old('email') }}" name="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" name="phone" value="{{ old('phone') }}"  maxlength="11"  pattern="[0][1][3 7 6 5 8 9][0-9]{8}" title="
+                Please select Valid mobile number" class="form-control" id="phone" placeholder="Enter your phone number" required>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-6 mb-3">
+    <label for="department" class="form-label">Department Name</label>
+    <select class="form-select" id="department" name="department" required>
+        <option value="" {{ old('department') == '' ? 'selected' : '' }}>Select Department</option>
+        @foreach(department() as $row)
+            <option value="{{ $row->department_name }}" {{ old('department') == $row->department_name ? 'selected' : '' }}>
+                {{ $row->department_name }}
+            </option>
+        @endforeach
+    </select>
+    </div>
+
+           <div class="col-sm-6 mb-3">
+    <label for="address" class="form-label">Hall Name</label>
+    <select class="form-select" id="address" name="address" required>
+        <option value="" {{ old('address') == '' ? 'selected' : '' }}>Select Hall</option>
+        @foreach(hall() as $row)
+            <option value="{{ $row->hall_name }}" {{ old('address') == $row->hall_name ? 'selected' : '' }}>
+                {{ $row->hall_name }}
+            </option>
+        @endforeach
+    </select>
+</div>
+</div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                   <select class="form-select" id="gender" name="gender" required>
+                      <option value="" {{ old('gender') == '' ? 'selected' : '' }}>Select gender</option>
+                      <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
+                      <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
+                  </select>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <label for="session" class="form-label">Session</label>
+                <input type="text" class="form-control" value="{{ old('passing_year') }}"  name="passing_year" id="passing_year" placeholder="Enter session (e.g., 2024)" required>
+            </div>
+        </div>
+        @if ($errors->any())
+          <div class="alert alert-danger">
+             <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+           </div>
+       @endif
+
+            @if(Session::has('fail'))
+                <div  class="alert alert-danger"> {{Session::get('fail')}}</div>
+            @endif
+                           
+             @if(Session::has('success'))
+                   <div  class="alert alert-success"> {{Session::get('success')}}</div>
+             @endif
+
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+  
+
+<br><br>
+
     <!-- Carousel Start -->
     <div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">
         <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">

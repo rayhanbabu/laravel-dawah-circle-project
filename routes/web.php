@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\NoticeController;
+use App\Http\Controllers\Event\RegistrationController;
 
 
 
@@ -36,6 +37,8 @@ use App\Http\Controllers\Admin\NoticeController;
       //  });
 
        Route::get('/', [HomeController::class, 'home']);
+       Route::post('/event/event_registration', [RegistrationController::class, 'event_registration']);
+       Route::get('/event/payment_process/{tran_id}', [RegistrationController::class, 'payment_process']);
        
         //Route::get('/users',[UserController::class,'user_show'])->name('users.index');
         Route::middleware('auth')->group(function () {
