@@ -139,38 +139,30 @@
     >
       <div class="container">
         <div class="row g-5">
-          <div class="col-lg-3 col-md-6">
+
+          <div class="col-lg-4 col-md-6">
             <h4 class="text-white mb-4">Get In Touch</h4>
             <h6 class="text-primary mb-4">
                ঢাকা বিশ্ববিদ্যালয় দাওয়াহ সার্কেল
             </h6>
             <p class="mb-2">
-              <i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA
+              <i class="fa fa-map-marker-alt me-3"></i> University of Dhaka
             </p>
+            
             <p class="mb-2">
-              <i class="fa fa-phone-alt me-3"></i>+012 345 67890
-            </p>
-            <p class="mb-2">
-              <i class="fa fa-envelope me-3"></i>info@example.com
+              <i class="fa fa-envelope me-3"></i>duislamiclibrary@gmail.com
             </p>
           </div>
-          <div class="col-lg-3 col-md-6">
-            <h4 class="text-light mb-4">Quick Links</h4>
-            <a class="btn btn-link" href="{{url('#')}}">About Us</a>
-            <a class="btn btn-link" href="{{url('#')}}">Contact Us</a>
-            <a class="btn btn-link" href="{{url('#')}}">Our Services</a>
-            <a class="btn btn-link" href="{{url('#')}}">Terms & Condition</a>
-            <a class="btn btn-link" href="{{url('#')}}">Support</a>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <h4 class="text-light mb-4">Popular Links</h4>
-            <a class="btn btn-link" href="{{url('#')}}">About Us</a>
-            <a class="btn btn-link" href="{{url('#')}}">Contact Us</a>
-            <a class="btn btn-link" href="{{url('#')}}">Our Services</a>
-            <a class="btn btn-link" href="{{url('#')}}">Terms & Condition</a>
+         
+          <div class="col-lg-4 col-md-6">
+            <h4 class="text-light mb-4"> Links</h4>
+            <a class="btn btn-link" href="https://qarze-hasana.halalrizik.com/">Qarze Hasana </a>
+            <a class="btn btn-link" href="https://library.dudc.org/">Contact Us</a>
+            <a class="btn btn-link" href="https://biye.dudc.org/"> Practicing Bibaho </a>
             <a class="btn btn-link" href="{{url('/login')}}">Staff Login</a>
           </div>
-          <div class="col-lg-3 col-md-6">
+
+          <div class="col-lg-4 col-md-6">
             <h4 class="text-light mb-4">Newsletter</h4>
             <form action="">
               <div class="input-group">

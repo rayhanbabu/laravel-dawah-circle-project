@@ -7,9 +7,8 @@
 <div class="login-container">
     <h3 class="text-center login-header">Registration</h3>
     <form method="POST" action="{{ url('member/register_insert') }}">
-    @csrf
-
-
+          @csrf
+          
          <div class="mb-3">
               <label for="Name" class="form-label">Name</label>
               <input type="text" name="name" class="form-control" value="{{ old('name') }}" id="name" placeholder="Enter your Name" required>

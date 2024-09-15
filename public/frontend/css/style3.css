@@ -504,3 +504,25 @@
       font-size: 2rem;
     }
   }
+
+
+
+  .icon-box {
+    text-align: center;
+    padding: 20px;
+}
+.icon-box i {
+    font-size: 50px;
+    color: #2a9d8f;
+    margin-bottom: 20px;
+}
+.icon-box h5 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #264653;
+}
+.icon-box p {
+    font-size: 16px;
+    color: #495057;
+}

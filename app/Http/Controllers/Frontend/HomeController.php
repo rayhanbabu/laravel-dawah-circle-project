@@ -23,12 +23,14 @@ class HomeController extends Controller
 {
 
        public function home(Request $request){
+              $values = Notice::where('notice_status',1)->where('event_id',5)->orderBy('serial','asc')->get(); 
               $slider = Notice::where('notice_status',1)->where('event_id',4)->orderBy('serial','asc')->get(); 
               $service = Notice::where('notice_status',1)->where('event_id',2)->orderBy('serial','asc')->get(); 
               $notice = Notice::where('notice_status',1)->where('event_id',1)->orderBy('serial','asc')->get(); 
               $testimonial = Notice::where('notice_status',1)->where('event_id',3)->orderBy('serial','asc')->get(); 
-              return view('frontend.home',['slider'=>$slider,'service'=>$service,'notice'=>$notice,'testimonial'=>$testimonial]);  
-        }
+                 return view('frontend.home',['slider'=>$slider,'service'=>$service,
+                 'notice'=>$notice,'testimonial'=>$testimonial,'values'=>$values]);  
+         }
 
         public function notice_detail(Request $request){
              $id=$request->id;

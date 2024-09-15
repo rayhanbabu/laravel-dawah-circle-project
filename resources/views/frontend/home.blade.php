@@ -5,9 +5,7 @@
 
 
 
-
-
-<div class="container mt-5 shadow p-4 rounded">
+  <div class="container mt-5 shadow p-4 rounded">
     <h3 class="mb-4">Registration Form</h3>
     <form method="POST" action="{{ url('event/event_registration') }}">
     @csrf
@@ -61,7 +59,8 @@
         @endforeach
     </select>
 </div>
-</div>
+
+     </div>
         <div class="row">
             <div class="col-sm-6 mb-3">
                 <label for="gender" class="form-label">Gender</label>
@@ -163,44 +162,35 @@
 
 
 
-      <div class="container service-page">
-        <div class="section-title">
-          <h1>আমাদের সেবা সমূহ</h1>
-        
-        </div>
-    
-        <div class="row">
-          <!-- Outdoor Service Card -->
+      <div class="container mt-0">
+    <div class="row">
+        <!-- Column 1 -->
 
-          @foreach($service as $item)
-    <div class="col-md-4 p-2">
-        <div class="service-card">
-            <h3>{{ $item->title }}</h3>
-            <p>{{ $item->text }}</p>
-            <a href="{{ !empty($item->link) ? url($item->link) : url('#') }}" class="btn btn-outline-primary btn-details">বিস্তারিত</a>
-        </div>
-       </div>
-   @endforeach
+        @foreach($values as $item)
+            <div class="col-md-4 icon-box">
+                <i class="bi bi-check-circle"> </i>
+                <h5>{{$item->title}}</h5>
+                <p> {!!$item->text !!} </p>
+           </div>
+        @endforeach
         
-
-        <!-- Repeat for more items as needed -->
-      </div>
     </div>
-  </div>
 </div>
-<!-- Courses End -->
 
 
 
 
+
+
+      @if($notice->isNotEmpty())
            <!-- Notice Start -->
-<div class="container courses my-2 py-1 pb-0 ">
-  <div class="container">
-    <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">
+   <div class="container courses my-2 py-1 pb-0 ">
+   <div class="container">
+     <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">
       
-      <h1 class="display-6 mb-4">
+       <h1 class="display-6 mb-4">
           নোটিশ সমূহ
-      </h1>
+       </h1>
     </div>
     <div class="row g-4 justify-content-center p-2">
          <!-- Owl Carousel Wrapper -->
@@ -229,7 +219,46 @@
   </div>
 </div>
 <!-- Notice End -->
+@endif
 
+
+            
+
+
+
+
+
+      <div class="container service-page">
+        <div class="section-title">
+          <h1> কার্যক্রম সমূহ </h1>
+        
+        </div>
+    
+        <div class="row">
+          <!-- Outdoor Service Card -->
+
+          @foreach($service as $item)
+    <div class="col-md-4 p-2">
+        <div class="service-card">
+            <h3>{{ $item->title }}</h3>
+            <p>{{ $item->text }}</p>
+            <!-- <a href="{{ !empty($item->link) ? url($item->link) : url('#') }}" class="btn btn-outline-primary btn-details">বিস্তারিত</a> -->
+             <a href="{{url('notice_detail/'.$item->id)}}" class="btn btn-outline-primary btn-details">বিস্তারিত</a>
+          </div>
+       </div>
+   @endforeach
+        
+
+        <!-- Repeat for more items as needed -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Courses End -->
+
+
+
+ 
 
   @if($testimonial->isNotEmpty())
      <!-- Testimonial Start -->
@@ -239,7 +268,7 @@
           class="text-center mx-auto mb-5 wow fadeInUp"
           data-wow-delay="0.1s"
         >
-          <h1 class="display-6 mb-4">  ঢাকা বিশ্ববিদ্যালয় দাওয়াহ সার্কেল  সম্পকে </h1>
+          <h1 class="display-6 mb-4"> ঢাকা বিশ্ববিদ্যালয় দাওয়াহ সার্কেল  সম্পর্কে  </h1>
         </div>
         <div class="row justify-content-center">
           <div class="col-lg-8  wow fadeInUp " data-wow-delay="0.1s">
