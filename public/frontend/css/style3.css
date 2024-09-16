@@ -25,6 +25,10 @@
     z-index: 99;
 }
 
+body{
+    font-family:"SolaimanLipiNormal" !important;
+}
+
 
 /*** Spinner ***/
 #spinner {

@@ -35,6 +35,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{asset('frontend/css/bootstrap.min3.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{asset('dashboardfornt/css/solaiman.css')}}">
 
 
      <!-- JavaScript Libraries -->
@@ -157,7 +158,7 @@
           <div class="col-lg-4 col-md-6">
             <h4 class="text-light mb-4"> Links</h4>
             <a class="btn btn-link" href="https://qarze-hasana.halalrizik.com/">Qarze Hasana </a>
-            <a class="btn btn-link" href="https://library.dudc.org/">Contact Us</a>
+            <a class="btn btn-link" href="https://library.dudc.org/"> DU Islamic Library </a>
             <a class="btn btn-link" href="https://biye.dudc.org/"> Practicing Bibaho </a>
             <a class="btn btn-link" href="{{url('/login')}}">Staff Login</a>
           </div>
