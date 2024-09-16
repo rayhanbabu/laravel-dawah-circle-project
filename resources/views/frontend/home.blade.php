@@ -71,6 +71,8 @@
 </div>
 
      </div>
+
+
         <div class="row">
             <div class="col-sm-6 mb-3">
                 <label for="gender" class="form-label">Gender</label>
@@ -80,11 +82,47 @@
                       <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
                   </select>
             </div>
+
             <div class="col-sm-6 mb-3">
-                <label for="session" class="form-label">Session</label>
-                <input type="text" class="form-control" value="{{ old('passing_year') }}"  name="passing_year" id="passing_year" placeholder="Enter session (e.g., 2024)" required>
-            </div>
+                <label for="session" class="form-label">Current Year</label>
+                <select class="form-select" id="passing_year" name="passing_year" required>
+                      <option value="" {{ old('passing_year') == '' ? 'selected' : '' }}>Select Current Year</option>
+                      <option value="1st Year" {{ old('passing_year') == '' ? 'selected' : '' }}> 1st Year </option>
+                      <option value="2nd Year" {{ old('passing_year') == '' ? 'selected' : '' }}> 2nd Year </option>
+                      <option value="3rd Year" {{ old('passing_year') == '' ? 'selected' : '' }}> 3rd Year </option>
+                      <option value="4th Year" {{ old('passing_year') == '' ? 'selected' : '' }}> 4th Year </option>
+                      <option value="MS" {{ old('passing_year') == '' ? 'selected' : '' }}> MS </option>
+                      <option value="Honors Pass" {{ old('passing_year') == '' ? 'selected' : '' }}> Honors Pass </option>
+                      <option value="Masters Pass " {{ old('passing_year') == '' ? 'selected' : '' }}> Masters Pass  </option>
+                    </select>
         </div>
+   </div>
+
+
+
+   <div class="row">
+            <div class="col-sm-6 mb-3">
+                <label for="gender" class="form-label">Resident</label>
+                   <select class="form-select" id="resident" name="resident" required>
+                      <option value="" {{ old('resident') == '' ? 'selected' : '' }}>Select Resident</option>
+                      <option value="Yes" {{ old('resident') == 'Yes' ? 'selected' : '' }}>Yes</option>
+                      <option value="No" {{ old('resident') == 'No' ? 'selected' : '' }}>No</option>
+                  </select>
+            </div>
+
+            <div class="col-sm-6 mb-3">
+                <label for="session" class="form-label">Registration Type</label>
+                <select class="form-select" id="registration_type" name="registration_type" required>
+                      <option value="" {{ old('registration_type') == '' ? 'selected' : '' }}>Select Registration Type</option>
+                      <option value="Free" {{ old('registration_type') == '' ? 'selected' : '' }}> টিএসসি মাঠ ও গেমসরুমে রেজিস্ট্রেশন ফ্রি  </option>
+                      <option value="Paid" {{ old('registration_type') == '' ? 'selected' : '' }}> টিএসসি অডিটরিয়ামে সিটের জন্য রেজিস্ট্রেশন ফী ১০০ টাকা </option>
+                    
+                    </select>
+        </div>
+   </div>
+
+
+
         @if ($errors->any())
           <div class="alert alert-danger">
              <ul>

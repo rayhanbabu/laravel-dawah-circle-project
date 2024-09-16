@@ -24,6 +24,8 @@ class RegistrationController extends Controller
             'address'=>'required',
             'gender'=>'required',
             'passing_year'=>'required',
+            'resident'=>'required',
+            'registration_type'=>'required',
          ]
        );
 
@@ -38,6 +40,8 @@ class RegistrationController extends Controller
         'gender' => $request->gender,
         'passing_year' => $request->passing_year,
         'category_id' =>215,
+        'resident' => $request->resident, 
+        'registration_type' => $request->registration_type,
     ];
     
     // Send data to the external API
@@ -50,9 +54,17 @@ class RegistrationController extends Controller
 
          if($result['status']==600){
             return back()->with('fail', $result['message']);
-         }else if($result['status']==200){
+         }else if($result['status']==200 && $request->registration_type=="Paid"){
               return redirect('/event/payment_process/'.$result['tran_id']);
-         }else{
+         }else if($result['status']==200 && $request->registration_type=="Free"){
+            $subject = 'Dhaka University Dawah Circle';
+            $body = $request->name.", REgistration:".$request->registration.', Phone:'.$request->phone;
+            $link="Registration for Dhaka University Dawah Circle's DU Seerat Mahfil 2024 was successful";
+           
+            SendEmail($request->email, $subject, $body, $link, "Dhaka University Dawah Circle");
+            return back()->with('success', 'Your Registration has been successfully');
+
+         }  else{
             return back()->with('fail', 'Failed to submit data to the API. Please try again.');
          };
         

@@ -9,5 +9,5 @@
 
 
 Thanks,<br>
-{{ config('app.name') }}
+{{$details['name']}}
 </x-mail::message>
