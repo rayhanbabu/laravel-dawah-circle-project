@@ -37,6 +37,7 @@ use App\Http\Controllers\Event\RegistrationController;
       //  });
 
        Route::get('/', [HomeController::class, 'home']);
+       Route::get('/event/registration', [RegistrationController::class, 'home_event_registration']);
        Route::post('/event/event_registration', [RegistrationController::class, 'event_registration']);
        Route::get('/event/payment_process/{tran_id}', [RegistrationController::class, 'payment_process']);
        

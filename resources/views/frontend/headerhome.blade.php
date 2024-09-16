@@ -86,14 +86,19 @@
                  <a href="{{url('/')}}" class="nav-link @yield('home')">Home</a>
             </li>
 
+
+            <li class="nav-item  ">
+                 <a href="{{url('/event/registration')}}" class="nav-link @yield('event_registration')">Event Registration</a>
+            </li>
+
             @if(!member_info())
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                  <a href="{{url('/member/login')}}" class="nav-link @yield('login')">Login</a>
             </li>
 
             <li class="nav-item">
                  <a href="{{url('/member/register')}}" class="nav-link @yield('register')">Register</a>
-            </li>
+            </li> -->
             @else
             <li class="nav-item">
                  <a href="{{url('/member/dashboard')}}" class="nav-link @yield('dashbaord')">Dashboard</a>
@@ -180,10 +185,10 @@
               <a class="btn btn-square btn-outline-light me-1" href=""
                 ><i class="fab fa-twitter"></i
               ></a>
-              <a class="btn btn-square btn-outline-light me-1" href=""
+              <a class="btn btn-square btn-outline-light me-1" href="https://www.facebook.com/dudcbd"
                 ><i class="fab fa-facebook-f"></i
               ></a>
-              <a class="btn btn-square btn-outline-light me-1" href=""
+              <a class="btn btn-square btn-outline-light me-1" href="https://www.youtube.com/@DhakaUniversityDawahCircle"
                 ><i class="fab fa-youtube"></i
               ></a>
               <a class="btn btn-square btn-outline-light me-0" href=""

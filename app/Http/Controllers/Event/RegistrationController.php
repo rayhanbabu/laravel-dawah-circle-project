@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Http;
 
 class RegistrationController extends Controller
 {
+
+    public function home_event_registration(Request $request)
+    {
+
+        return view('frontend.event_registration');
+    }
     
     public function event_registration(Request $request)
     {
