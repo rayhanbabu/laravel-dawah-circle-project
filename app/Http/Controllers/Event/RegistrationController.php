@@ -64,7 +64,7 @@ class RegistrationController extends Controller
               return redirect('/event/payment_process/'.$result['tran_id']);
          }else if($result['status']==200 && $request->registration_type=="Free"){
             $subject = 'Seerat Mahfil 2024 Registration Confirmation';
-            $body = "Assalamu Alaikum. ".$request->name.", Registration No :".$request->registration.', Phone:'.$request->phone;
+            $body = "Assalamu Alaikum. ".$request->name.", Registration No :".$request->registration.', Phone:'.$request->phone.', Registration Type: Free';
             $link="You have registered as a Free Registration.
                  To gain access to the TSC on the day of Seerat Mahfil 2024, please 
                  bring your DU ID or equivalent materials along with this email. Zazkumullah khairan.";
