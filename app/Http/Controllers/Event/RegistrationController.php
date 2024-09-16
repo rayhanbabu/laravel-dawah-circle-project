@@ -18,9 +18,9 @@ class RegistrationController extends Controller
         return view('frontend.event_registration');
     }
     
+
     public function event_registration(Request $request)
     {
-        
         $request->validate([
             'name' => 'required',
             'registration'=>'required',
@@ -63,12 +63,16 @@ class RegistrationController extends Controller
          }else if($result['status']==200 && $request->registration_type=="Paid"){
               return redirect('/event/payment_process/'.$result['tran_id']);
          }else if($result['status']==200 && $request->registration_type=="Free"){
-            $subject = 'Dhaka University Dawah Circle';
-            $body = $request->name.", REgistration:".$request->registration.', Phone:'.$request->phone;
-            $link="Registration for Dhaka University Dawah Circle's DU Seerat Mahfil 2024 was successful";
+            $subject = 'Seerat Mahfil 2024 Registration Confirmation';
+            $body = "Assalamu Alaikum. ".$request->name.", Registration No :".$request->registration.', Phone:'.$request->phone;
+            $link="You have registered as a Free Registration.
+                 To gain access to the TSC on the day of Seerat Mahfil 2024, please 
+                 bring your DU ID or equivalent materials along with this email. Zazkumullah khairan.";
            
-            SendEmail($request->email, $subject, $body, $link, "Dhaka University Dawah Circle");
-            return back()->with('success', 'Your Registration has been successfully');
+            SendEmail($request->email, $subject, $body, $link, "Seerat Mahfil Organizing Committe");
+            return back()->with('success', 'You have registered as a Free Registration.
+                 To gain access to the TSC on the day of Seerat Mahfil 2024, please 
+                 bring your DU ID or equivalent materials along with this email. Zazkumullah khairan.');
 
          }  else{
             return back()->with('fail', 'Failed to submit data to the API. Please try again.');

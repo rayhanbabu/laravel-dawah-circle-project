@@ -4,18 +4,37 @@
 @section('homecontent')
 
 <div class="container mt-5 shadow p-4 rounded">
-    <h5 style="margin:0" class="mb-4 text-center">ঢাবি সীরাত মাহফিল ও পুরস্কার বিতরণী-২০২৪</h5>
+    <h5 style="margin:0px;" class="text-center">ঢাবি সীরাত মাহফিল ও পুরস্কার বিতরণী-২০২৪</h5>
 
     <p class="text-center"> <b>  স্থান: টিএসসি, ঢাকা বিশ্ববিদ্যালয়
              তারিখঃ ২১ সেপ্টেম্বর,
              ব্যাপ্তিঃ সারাদিন ব্যাপি   </b> </p>
-    <p>  TSC অডিটরিয়ামে সিটের জন্য রেজিস্ট্রেশন ফী ১০০ টাকা।  অডিটোরিয়ামের সিট পূর্ণ হয়ে গেলে এ অপশনটি সয়ংক্রিয়ভাবে বন্ধ হয়ে যাবে।
-
-বাকিদের ফ্রি রেজিস্ট্রেশন আবশ্যক। তাদের জন্য টিএসসি মাঠ ও গেমসরুমে ব্যবস্থা করা হয়েছে ।
- 
-রেজিস্ট্রেশন সম্পন্ন হলে ইমেইলের মাধ্যমে আপনাকে কনফার্ম করা হবে। প্রোগামের দিন টিএসসিতে প্রবেশের সময় ঢাবি আইডি কার্ড অথবা শিক্ষার্থী পরিসেবা আইডির সফট/হার্ডকপি দেখিয়ে প্রবেশ করতে হবে।
-রেজিষ্ট্রেশন সংক্রান্ত যেকোনো সমস্যায় আমাদের পেজে ম্যাসেজ করুন  <a target="_blank" href="https://www.facebook.com/dudcbd"> Click here</a>
+    <p style="font-size: 14px;">  TSC অডিটরিয়ামে সিটের জন্য রেজিস্ট্রেশন ফী ১০০ টাকা।
+         অডিটোরিয়ামের সিট পূর্ণ হয়ে গেলে আর অডিটেরিমের জন্য রেজিস্ট্রেশন করতে পারবেন না। 
+         বাকিদের ফ্রি রেজিস্ট্রেশন আবশ্যক। তাদের জন্য টিএসসি মাঠ ও গেমসরুমে ব্যবস্থা করা হয়েছে । 
+         রেজিস্ট্রেশন সম্পন্ন হলে ইমেইলের মাধ্যমে আপনাকে কনফার্ম করা হবে। প্রোগামের দিন টিএসসিতে 
+         প্রবেশের সময় কনফার্মেশন ইমেইল, ঢাবি আইডি কার্ড অথবা শিক্ষার্থী পরিসেবা আইডির সফট/হার্ডকপি 
+         দেখিয়ে প্রবেশ করতে হবে। 
+           <a target="_blank" href="https://www.facebook.com/dudcbd"> Click here</a>
 </p>
+
+@if ($errors->any())
+          <div class="alert alert-danger">
+             <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+           </div>
+       @endif
+
+            @if(Session::has('fail'))
+                <div  class="alert alert-danger"> {{Session::get('fail')}}</div>
+            @endif
+                           
+             @if(Session::has('success'))
+                   <div  class="alert alert-success"> {{Session::get('success')}}</div>
+             @endif
     <form method="POST" action="{{ url('event/event_registration') }}">
     @csrf
         <div class="row">
@@ -123,23 +142,7 @@
 
 
 
-        @if ($errors->any())
-          <div class="alert alert-danger">
-             <ul>
-                @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-                @endforeach
-              </ul>
-           </div>
-       @endif
-
-            @if(Session::has('fail'))
-                <div  class="alert alert-danger"> {{Session::get('fail')}}</div>
-            @endif
-                           
-             @if(Session::has('success'))
-                   <div  class="alert alert-success"> {{Session::get('success')}}</div>
-             @endif
+       
 
 
 
