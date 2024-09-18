@@ -97,9 +97,45 @@ class RegistrationController extends Controller
              return view('frontend.payment_process',['data'=>$data['data']]); 
          }else{
              return "Invalid URl";
-         }
-       
+         } 
     }
+
+
+
+    public function home_event_verification(Request $request)
+    {
+        return view('frontend.event_search');
+    }
+
+
+    public function verification_search(Request $request)
+    {
+        
+        $registration=$request->registration;
+        $status=$request->status;
+
+        $response = Http::get('https://amaderthikana.com/api/dudcircle/non_member_search/'.$registration.'/'.$status);
+        $data = $response->json();
+
+        if($data['status']=='success'){
+              return response()->json([
+                 'status' => 'success',
+                 'data' => $data['data'],
+              ]);
+        }else{
+             return response()->json([
+                'status' =>'fail',
+                'message' => 'Data Not Found',
+             ]);
+         }
+
+       
+        
+    }
+
+
+    
+    
 
 
     
