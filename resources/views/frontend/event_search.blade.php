@@ -69,6 +69,8 @@ $("#add_employee_form").submit(function(e) {
                                   
                                 </div>
                                 <div class="card-body">
+                                    <p><strong>Registration Id:</strong> ${response.data.id}</p>
+                                     <p><strong> DU Registration:</strong> ${response.data.registration}</p>
                                     <p><strong>Name:</strong> ${response.data.name}</p>
                                     <p><strong>Department:</strong> ${response.data.department}</p>
                                     <p><strong>Hall:</strong> ${response.data.address}</p>
