@@ -60,6 +60,7 @@ $("#add_employee_form").submit(function(e) {
                 console.log(response);
                 if (response.status == "success") {
                  // Dynamically create the employee card with the response data
+                 let paymentStatus = response.data.payment_status == 1 ? 'Yes' : 'No';
                  let employeeCard = `
                  <div class="container mt-2">
                     <div class="row justify-content-center">
@@ -75,7 +76,7 @@ $("#add_employee_form").submit(function(e) {
                                     <p><strong>Department:</strong> ${response.data.department}</p>
                                     <p><strong>Hall:</strong> ${response.data.address}</p>
                                     <p><strong>Registration Type:</strong> ${response.data.registration_type}</p>
-                                    <p><strong>Payment Status:</strong> ${response.data.payment_status}</p>
+                                    <p><strong>Payment Status:</strong> ${paymentStatus}</p>
                                 </div>
                             </div>
                         </div>
