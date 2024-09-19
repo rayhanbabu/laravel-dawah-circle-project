@@ -59,7 +59,7 @@ $("#add_employee_form").submit(function(e) {
             console.log(response);
             let employeeCards = '';
 
-            if (response.status == "success") {
+            if (response.status == "success" && Array.isArray(response.data) && response.data.length > 0) {
                 // Iterate over each employee data in the array
                 response.data.forEach(function(employee) {
                     let paymentStatus = employee.payment_status == 1 ? 'Yes' : 'No';
