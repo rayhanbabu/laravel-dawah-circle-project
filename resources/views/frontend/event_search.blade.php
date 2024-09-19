@@ -41,60 +41,62 @@
 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
 
 $("#add_employee_form").submit(function(e) {
-            e.preventDefault();
-            const fd = new FormData(this);
-            $.ajax({
-              type:'POST',
-              url:"/event/verification_search",
-              data: fd,
-              cache: false,
-              contentType: false,
-              processData: false,
-              dataType: 'json',
-              beforeSend : function()
-                   {
-                   $("#add_employee_btn").prop('disabled', true).text("Searching...");
-                   },
-              success: function(response){
-                $("#add_employee_btn").prop('disabled', false).text("Submit");
-                console.log(response);
-                if (response.status == "success") {
-                 // Dynamically create the employee card with the response data
-                 let paymentStatus = response.data.payment_status == 1 ? 'Yes' : 'No';
-                 let employeeCard = `
-                 <div class="container mt-2">
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 card-container">
-                            <div class="card shadow-lg">
-                                <div class="card-header">
-                                  
-                                </div>
-                                <div class="card-body">
-                                    <p><strong>Registration Id:</strong> ${response.data.id}</p>
-                                     <p><strong> DU Registration:</strong> ${response.data.registration}</p>
-                                    <p><strong>Name:</strong> ${response.data.name}</p>
-                                    <p><strong>Department:</strong> ${response.data.department}</p>
-                                    <p><strong>Hall:</strong> ${response.data.address}</p>
-                                    <p><strong>Registration Type:</strong> ${response.data.registration_type}</p>
-                                    <p><strong>Payment Status:</strong> ${paymentStatus}</p>
+    e.preventDefault();
+    const fd = new FormData(this);
+    $.ajax({
+        type: 'POST',
+        url: "/event/verification_search",
+        data: fd,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        beforeSend: function() {
+            $("#add_employee_btn").prop('disabled', true).text("Searching...");
+        },
+        success: function(response) {
+            $("#add_employee_btn").prop('disabled', false).text("Submit");
+            console.log(response);
+            let employeeCards = '';
+
+            if (response.status == "success") {
+                // Iterate over each employee data in the array
+                response.data.forEach(function(employee) {
+                    let paymentStatus = employee.payment_status == 1 ? 'Yes' : 'No';
+                    employeeCards += `
+                    <div class="container mt-2">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 card-container">
+                                <div class="card shadow-lg">
+                                    <div class="card-header">
+                                        <!-- Optional header content -->
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>Registration Id:</strong> ${employee.id}</p>
+                                        <p><strong>DU Registration:</strong> ${employee.registration}</p>
+                                        <p><strong>Name:</strong> ${employee.name}</p>
+                                        <p><strong>Department:</strong> ${employee.department}</p>
+                                        <p><strong>Hall:</strong> ${employee.address}</p>
+                                        <p><strong>Registration Type:</strong> ${employee.registration_type}</p>
+                                        <p><strong>Payment Status:</strong> ${paymentStatus}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>`;
+                    </div>`;
+                });
                 
-                // Replace the content inside the container with the new employee card
-                $("#employeeCardContainer").html(employeeCard);
+                // Replace the content inside the container with the generated employee cards
+                $("#employeeCardContainer").html(employeeCards);
             } else {
                 // Handle the error response here (e.g., show an alert)
-                    let employeeCard = '<h2 class="text-center"> Data Not Found </h2>'
+                let employeeCard = '<h2 class="text-center"> Data Not Found </h2>';
                 $("#employeeCardContainer").html(employeeCard);
             }
-                
-              }
-            });
-      
-          });
+        }
+    });
+});
+
 
 
 </script>
