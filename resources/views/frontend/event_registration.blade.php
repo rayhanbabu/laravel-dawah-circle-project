@@ -134,7 +134,7 @@
                  <select class="form-select" id="registration_type" name="registration_type" required>
                        <option value="" {{ old('registration_type') == '' ? 'selected' : '' }}>Select Registration Type</option>
                        <option value="Free" {{ old('registration_type') == 'Free' ? 'selected' : '' }}> Free Registration  </option>
-                       <option value="Paid" {{ old('registration_type') == 'Paid' ? 'selected' : '' }}> Auditorium Book  </option>
+                      
                   </select>
         </div>
    </div>
