@@ -87,26 +87,30 @@
             </li>
 
 
-            <li class="nav-item  ">
+            <!-- <li class="nav-item  ">
                  <a href="{{url('/event/registration')}}" class="nav-link @yield('event_registration')">Event Registration</a>
             </li>
 
             <li class="nav-item  ">
                  <a href="{{url('/event/verification')}}" class="nav-link @yield('event_verification')">Seerat 24 verify</a>
-            </li>
-
-            @if(!member_info())
-            <!-- <li class="nav-item">
-                 <a href="{{url('/member/login')}}" class="nav-link @yield('login')">Login</a>
-            </li>
-
-            <li class="nav-item">
-                 <a href="{{url('/member/register')}}" class="nav-link @yield('register')">Register</a>
             </li> -->
-            @else
+
+            @if(member_info() && member_info()['email'])
+
             <li class="nav-item">
                  <a href="{{url('/member/dashboard')}}" class="nav-link @yield('dashbaord')">Dashboard</a>
             </li>
+
+            @else
+
+               <li class="nav-item">
+                    <a href="{{url('/member/login')}}" class="nav-link @yield('login')">Login</a>
+               </li>
+
+               <li class="nav-item">
+                    <a href="{{url('/member/register')}}" class="nav-link @yield('register')">Register</a>
+               </li>
+          
             @endif
 
          @if(member_info() && member_info()['email'])

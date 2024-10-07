@@ -6,19 +6,18 @@
 
  @if($notice->event_id==2)
        
- <div class="container mt-5">
-        <div class="card">
-      
-            <div class="card-body">
-                <h3 class="card-title"> {{$notice->title}} </h3>
+      <div class="container mt-5">
+           <div class="card">
+                <div class="card-body">
+                   <h3 class="card-title"> {{$notice->title}} </h3>
            
-                <p class="card-text">
-                   {!!$notice->desc!!}
-                </p>
+                     <p class="card-text">
+                         {!!$notice->desc!!}
+                      </p>
                
+                 </div>
             </div>
-        </div>
-    </div>
+      </div>
 
  @else
 

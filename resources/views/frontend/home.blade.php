@@ -143,10 +143,9 @@
           @foreach($service as $item)
     <div class="col-md-4 p-2">
         <div class="service-card">
-            <h3>{{ $item->title }}</h3>
-            <p>{{ $item->text }}</p>
-            <!-- <a href="{{ !empty($item->link) ? url($item->link) : url('#') }}" class="btn btn-outline-primary btn-details">বিস্তারিত</a> -->
-             <a href="{{url('notice_detail/'.$item->id)}}" class="btn btn-outline-primary btn-details">বিস্তারিত</a>
+             <h3>{{ $item->title }}</h3>
+             <p>{{ $item->text }}</p>
+             <a href="{{ !empty($item->link) ? url($item->link) : url('notice_detail/'.$item->id) }}" class="btn btn-outline-primary btn-details">বিস্তারিত</a>
           </div>
        </div>
    @endforeach
