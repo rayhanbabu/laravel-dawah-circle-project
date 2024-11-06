@@ -131,7 +131,7 @@
            </div> 
 
            <div class="form-group col-sm-2 my-2">
-              <label class=""><b> book Image  </b></label>
+              <label class=""><b> book Image (Max 800KB)</b></label>
               <input type="file" name="image"  class="form-control form-control-sm" placeholder="" >
           </div>
             

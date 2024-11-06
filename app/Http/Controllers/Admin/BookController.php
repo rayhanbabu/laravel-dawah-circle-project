@@ -163,7 +163,7 @@ class BookController extends Controller
                  'book_status' => 'required',
                  'author_id' => 'required',
                  'category_id' => 'required',
-                 'image' => 'image|mimes:jpeg,png,jpg|max:400',
+                 'image' => 'image|mimes:jpeg,png,jpg|max:800',
                ]);
           }else{
               $request->validate([
@@ -171,7 +171,7 @@ class BookController extends Controller
                  'book_status' => 'required',
                  'author_id' => 'required',
                  'category_id' => 'required',
-                 'image'=> 'image|mimes:jpeg,png,jpg|max:400',
+                 'image'=> 'image|mimes:jpeg,png,jpg|max:800',
               ]);
           }
 
