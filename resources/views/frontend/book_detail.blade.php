@@ -8,26 +8,53 @@
 
  <!-- About Start -->
  <div class="container-xxl py-2">
-      <div class="container">
+      <div class="container ">
           <div class="row  g-5 shadow">
               <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
                    <div class="text-center"> 
                      <div class="ps-5 pt-2 h-100">
-                      <img class="img-fluid"   src="{{ !empty($book->image) ? asset('uploads/admin/' . $book->image) : asset('/frontend/img/bookicon.png') }}" 
+                      <img class="img-fluid"   src="{{ !empty($book->max('image')) ? asset('uploads/admin/' . $book->max('image')) : asset('/frontend/img/bookicon.png') }}" 
                          style="height: 220px; width: auto; transition: transform 0.3s ease, filter 0.3s ease;"  alt="">
-                        <div> Page No : {{$book->page}} </div>
-                        <div> Language : {{$book->lang}} </div>
+                         <br> <br>
+                         <div> Page No : {{$book->max('page')}} </div>
+                        <div> Language : {{$book->max('lang')}} </div>
                      </div>
                   </div>
 
               </div>
               <div class="col-lg-9 wow fadeInUp" data-wow-delay="0.5s">
                   <div class="h-100">
-                      <br><br>
-                      <h4 class="display-8"> {{$book->title}}</h4>
-                      <h6 class="display-10">
-                        Author: {{ author_id_detail($book->author_id)}}
-                      </h6>
+                     <br><br>
+                 <div class="row"> 
+                            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                               <h4 class="display-8"> {{$book->max('title')}}</h4>
+                                <h6 class="display-8">
+                                   @foreach( author_detail($book->max('book_id')) as $row ) 
+                                     <li>{{$row->author_name}} </li>
+                                   @endforeach
+                                </h6>
+                             </div>
+
+                 <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.5s">
+                      <form action="{{ url('/book_detail/'.$book->max('book_code')) }}" method="GET" class="mb-4">
+                     <div class="input-group">
+                            <select class="form-select" id="hall_id"  name="hall_id" required>
+                                <option selected disabled> Select the Book Received Hall </option>
+                                  @foreach($book as $row)
+                                 <option value="{{ $row->hall_id }}" {{ $row->hall_id == $hall_id ? 'selected' : '' }}>
+                                   {{ $row->hall_name }}
+                                 </option>
+                               @endforeach       
+                              <!-- Add more options as needed -->
+                              </select>
+                           <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                     </form>         
+                  </div>  
+
+            </div>
+                   
+                      
                      
              
     <table class="table table-hover">
@@ -40,6 +67,14 @@
             </tr>
         </thead>
         <tbody>
+        @if($book_detail->isEmpty())
+             <tr >
+                 <td colspan="4"> 
+                   <p class="text-center"> Select the Book Received Hall</p>
+                 </td>
+                 
+             </tr>
+       @else
 
         @foreach($book_detail as $row)
             <tr>
@@ -69,8 +104,8 @@
         </td>
 
             </tr>
-       @endforeach
-
+        @endforeach
+       @endif
           
 
         </tbody>
@@ -82,7 +117,7 @@
 
            
                <div class="row p-5"> 
-                     
+                       {!! $book->min('book_desc') !!}
                </div>
 
           </div>

@@ -1,13 +1,14 @@
 <?php
-
-use App\Models\Author;
-use Illuminate\Support\Facades\DB;
+    use App\Models\Author;
+    use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Mail;
     use App\Models\Department;
     use App\Models\Event;
     use Illuminate\Support\Facades\Cookie;
     use App\Models\Hall;
-use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Auth;
+    use App\Models\Mauthor;
+    use App\Models\Mcategory;
 
        function prx($arr){
            echo "<pre>";
@@ -95,6 +96,20 @@ use Illuminate\Support\Facades\Auth;
             return "N/A"; // Default value when author_name is null or empty
         }
     }
+
+
+      function author_detail($book_id){
+          $data=Mauthor::leftjoin('authors','authors.id','=','mauthors.author_id')
+            ->where('book_id',$book_id)->select('authors.author_name','mauthors.*')->get();
+            return $data;
+      }
+
+      function category_detail($book_id){
+        $data=Mcategory::leftjoin('categories','categories.id','=','mcategories.category_id')
+        ->where('book_id',$book_id)->select('categories.category_name','mcategories.*')->get();
+        return $data;
+     }
+
        
   
     

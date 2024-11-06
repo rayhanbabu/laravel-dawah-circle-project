@@ -77,7 +77,7 @@
                   <option value="">Select User </option>
                      @foreach($user as $row)
                        <option value="{{ $row->id }}" {{ $row->id == $book->user_id ? 'selected' : '' }}>
-                            {{ $row->name }}
+                            {{ $row->name }} ( {{ $row->userType }})
                        </option>
                      @endforeach
                  </select>

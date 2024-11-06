@@ -43,7 +43,7 @@ class HomeController extends Controller
              $search = $request->input('search');
              $book=DB::table('books')->where('title', 'like', '%' . $search . '%')->select('book_code',DB::raw('count(id) as id_total')
              ,DB::raw('max(title) as title') ,DB::raw('max(image) as image'))->orderBy('book_code','asc')
-             ->groupBy('book_code')->paginate(2);
+             ->groupBy('book_code')->paginate(12);
              return view('frontend.book',compact('book', 'search'));  
         }
 
@@ -51,18 +51,23 @@ class HomeController extends Controller
         public function book_detail(Request $request){
               
               $book_code=$request->book_code;
+              $hall_id = $request->query('hall_id','');
               $gender = $request->header('gender');
-              $book=DB::table('books')->where('book_code',$book_code)->select('book_code',DB::raw('count(id) as id_total')
-              ,DB::raw('max(title) as title') , DB::raw('max(image) as image') , DB::raw('max(page) as page')
-              ,DB::raw('max(lang) as lang'),DB::raw('max(author_id) as author_id'))->orderBy('book_code','asc')
-              ->groupBy('book_code')->first();
-
+           
+              $book=DB::table('books')->leftjoin('users','users.id','=','books.user_id') 
+                ->leftjoin('halls','halls.id','=','users.hall_id')->where('book_code',$book_code)->select('hall_id',DB::raw('count(books.id) as id_total')
+                ,DB::raw('max(title) as title'),DB::raw('max(books.image) as image') , DB::raw('max(page) as page'),DB::raw('max(books.book_code) as book_code')
+                ,DB::raw('max(lang) as lang'),DB::raw('max(book_id) as book_id'),DB::raw('max(halls.hall_name) as hall_name')
+                ,DB::raw('max(books.desc) as book_desc'))->orderByRaw('LENGTH(books.desc) DESC')
+                ->groupBy('users.hall_id')->get();
+            
+               
                $book_detail=Book::leftjoin('users','users.id','=','books.user_id') 
                  ->leftjoin('halls','halls.id','=','users.hall_id') 
-                 ->where('users.gender',$gender)->where('books.book_code',$book_code)->where('books.book_status','!=',0) 
+                 ->where('users.gender',$gender)->where('users.hall_id',$hall_id)->where('books.book_code',$book_code)->where('books.book_status','!=',0) 
                  ->select('users.name','users.gender','users.name','halls.hall_name','books.*')->get();
 
-              return view('frontend.book_detail',['book'=>$book,'book_detail'=>$book_detail]);
+              return view('frontend.book_detail',['book'=>$book,'book_detail'=>$book_detail,'hall_id'=>$hall_id]);
          }
 
         public function book_order(Request $request){
@@ -97,12 +102,15 @@ class HomeController extends Controller
                   ->rawColumns(['status'])
                   ->make(true);
                }
+
              return view('frontend.book_order');  
         }
 
 
         public function book_request(Request $request){
               
+            DB::beginTransaction();
+            try {
              $book_id=$request->book_id;
              $member_id = $request->header('member_id');
              $gender = $request->header('gender');
@@ -132,10 +140,12 @@ class HomeController extends Controller
    
                DB::update("update books set book_status ='3' where book_id = '$book_id'");
 
+               DB::commit();
                return response()->json([
                    'status' => 'success',
                    'message' => 'Requested Successfully',
                  ],200);
+
              }else{
                 return response()->json([
                     'status' => 'fail',
@@ -143,6 +153,17 @@ class HomeController extends Controller
                 ],200);
              }
 
+          
+  
+           } catch (\Exception $e) {
+              DB::rollback();
+              return response()->json([
+                'status' => 'fail',
+                'message' => 'An error occurred. Please try again.',
+            ],200);
+          } 
+  
+          
         }
 
 
@@ -155,16 +176,14 @@ class HomeController extends Controller
                  $data = Issue::leftjoin('members','members.id','=','issues.member_id') 
                   ->leftjoin('users','users.id','=','issues.user_id')
                   ->leftjoin('books','books.book_id','=','issues.book_id')
-                  ->leftjoin('authors','authors.id','=','books.author_id') 
-                  ->select('authors.author_name','members.name as member_name','members.phone'
+                  ->select('members.name as member_name','members.phone','books.book_id'
                   ,'users.name as user_name','books.title','issues.*')->latest()->get();
                 }else{
                     $data = Issue::leftjoin('members','members.id','=','issues.member_id') 
                     ->leftjoin('users','users.id','=','issues.user_id')
-                    ->leftjoin('books','books.book_id','=','issues.book_id')
-                    ->leftjoin('authors','authors.id','=','books.author_id') 
+                    ->leftjoin('books','books.book_id','=','issues.book_id') 
                     ->where('issues.user_id',$auth->id)
-                    ->select('authors.author_name','members.name as member_name','members.phone'
+                    ->select('members.name as member_name','members.phone','books.book_id'
                     ,'users.name as user_name','books.title','issues.*')->latest()->get();
                 }
 
@@ -210,6 +229,8 @@ class HomeController extends Controller
 
              public function issue_update(Request $request)
              {
+                DB::beginTransaction();
+                try {
                  $validator = \Validator::make($request->all(), [
                      'issue_status' => 'required',
                      'edit_id' => 'required',
@@ -227,7 +248,7 @@ class HomeController extends Controller
                      ]);
                  } else {
                      $model = Issue::find($request->input('edit_id'));
-                     if ($model) {
+                     if($model){
                        if($status==1){
                             $model->return_time = $time;
                             $model->return_date = $date;
@@ -241,18 +262,27 @@ class HomeController extends Controller
                        $model->update();
 
                        DB::update("update books set book_status ='$status' where book_id = '$model->book_id'");
-
+                           DB::commit();
                             return response()->json([
                                'status' => 200,
                                'message' => 'Data Updated Successfully'
                              ]);
-                     } else {
+                     }else{
                          return response()->json([
                              'status' => 404,
                              'message' => 'Student not found',
                          ]);
                      }
                  }
+
+                } catch (\Exception $e) {
+                    DB::rollback();
+                    return response()->json([
+                      'status' => 'fail',
+                      'message' => 'An error occurred. Please try again.',
+                  ],200);
+                } 
+
              }
          
        

@@ -67,7 +67,7 @@ $(document).ready(function(){
                     Swal.fire("Warning",response.message, "warning");
                  }else if(response.status == 'success')
                     Swal.fire("Successfull",response.message, "success");
-  
+                    window.location.reload();
                   }
                 });
   

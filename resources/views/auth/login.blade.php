@@ -58,7 +58,7 @@
 	            		
 								</div>
 								<div class="w-50 text-md-right">
-									<a href="{{url('maintain/forget')}}">Forgot Password</a>
+									<a href="{{url('/forget_password')}}">Forgot Password</a>
 								</div>
 	               </div>
 	            </form>

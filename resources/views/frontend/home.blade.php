@@ -3,10 +3,8 @@
 @section('home','active')
 @section('homecontent')
 
-
-
     <!-- Carousel Start -->
-    <div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">
+     <div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">
         <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner" style="height: 500px;">
 
@@ -123,32 +121,23 @@
 </div>
 <!-- Notice End -->
 @endif
-
-
-            
-
-
-
-
-
-      <div class="container service-page">
-        <div class="section-title">
-          <h1> কার্যক্রম সমূহ </h1>
-        
+          
+       <div class="container service-page">
+         <div class="section-title">
+             <h1> কার্যক্রম সমূহ </h1>
         </div>
     
-        <div class="row">
-          <!-- Outdoor Service Card -->
-
-          @foreach($service as $item)
-    <div class="col-md-4 p-2">
-        <div class="service-card">
-             <h3>{{ $item->title }}</h3>
-             <p>{{ $item->text }}</p>
-             <a href="{{ !empty($item->link) ? url($item->link) : url('notice_detail/'.$item->id) }}" class="btn btn-outline-primary btn-details">বিস্তারিত</a>
-          </div>
-       </div>
-   @endforeach
+       <div class="row">
+        <!-- Outdoor Service Card -->
+       @foreach($service as $item)
+         <div class="col-md-4 p-2">
+            <div class="service-card">
+               <h3>{{ $item->title }}</h3>
+               <p>{{ $item->text }}</p>
+               <a href="{{ !empty($item->link) ? url($item->link) : url('notice_detail/'.$item->id) }}" class="btn btn-outline-primary btn-details">বিস্তারিত</a>
+            </div>
+         </div>
+       @endforeach
         
 
         <!-- Repeat for more items as needed -->

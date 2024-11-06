@@ -33,11 +33,11 @@
                 <table class="table  table-bordered data-table">
                    <thead>
                      <tr>
-                        
+                         <td> Issue Id </td>
                          <td> Name </td>
                          <td> Phone </td>
+                         <td> Book Id </td>
                          <td> Book name </td>
-                         <td> Author name </td>
                          <td> Retuested Time </td>
                          <td> Booking Time </td>
                          <td> Return Time </td> 

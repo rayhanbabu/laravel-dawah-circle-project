@@ -43,14 +43,20 @@ use App\Http\Controllers\Event\RegistrationController;
        
        Route::post('/event/event_registration', [RegistrationController::class, 'event_registration']);
        Route::get('/event/payment_process/{tran_id}', [RegistrationController::class, 'payment_process']);
+
+       Route::get('/forget_password', [ProfileController::class,'forget_password']);
+       Route::post('/forget_password_send', [ProfileController::class,'forget_password_send']);
+       Route::get('/reset_password/{token}', [ProfileController::class,'reset_password']);
+       Route::post('/reset_password_update', [ProfileController::class,'reset_password_update']);
        
         //Route::get('/users',[UserController::class,'user_show'])->name('users.index');
         Route::middleware('auth')->group(function () {
            Route::get('/admin/dashboard', [AdminController::class,'index']);
-           Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-           Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-           Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
            Route::get('admin/logout', [AuthenticatedSessionController::class, 'destroy']);
+
+           Route::get('/password_change', [ProfileController::class,'password_change']);
+           Route::post('/password_update', [ProfileController::class,'password_update']); 
+
         });
 
 

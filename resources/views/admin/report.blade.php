@@ -40,8 +40,10 @@
                     <table class="table table-bordered data-table">
                         <thead>
                             <tr>
+                               <td>Issue Id</td>
                                 <td>Name</td>
                                 <td>Phone</td>
+                                <td>Book Id</td>
                                 <td>Book Name</td>
                                 <td>Requested Time</td>
                                 <td>Issue Time</td>
@@ -83,13 +85,15 @@ function searchByPhone() {
                 $.each(response, function(index, row) {
                     $('.data-table tbody').append(`
                         <tr>
+                           <td>${row.id}</td>
                             <td>${row.member_name}</td>
                             <td>${row.phone}</td>
+                            <td>${row.book_id}</td>
                             <td>${row.title}</td>
                             <td>${row.request_time}</td>
                             <td>${row.issue_time}</td>
                             <td>${row.return_time}</td>
-                           <td>${row.issue_status == 1 ? 'Issue' : row.issue_status == 2 ? 'Requested' : 'Return'} </td> 
+                           <td>${row.issue_status == 1 ? 'Issue' : row.issue_status == 3 ? 'Requested' : 'Return'} </td> 
                            
                             <td>${row.return_day}</td>
                             <td>${row.comment}</td>

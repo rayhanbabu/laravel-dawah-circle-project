@@ -51,29 +51,33 @@
 
      <div class="row px-2">
 
-     <div class="form-group col-sm-3 my-2">
+     <div class="form-group col-sm-6 my-2">
                <label class=""><b> Category Name <span style="color:red;"> * </span></b></label><br>
-                 <select name="category_id" id="category_id"  class="form-control js-example-disabled-results" style="max-width:300px;" required>
-                  <option value=""> Select Categeory </option>
-                   @foreach($category as $row)
-                      <option value="{{ $row->id }}" {{ $row->id == $category_id ? 'selected' : '' }}>
-                          {{ $row->category_name }}
-                      </option>
-                   @endforeach
-                 </select>
+                 <select class="js-example-basic-multiple form-control" name="category_id[]" id="category_id" multiple="multiple" required>                       
+                @foreach($category as $row)
+                  <option value="{{ $row->id }}" 
+                  @foreach($mul_category as $row1){{ $row1->category_id==$row->id ? 'selected': ''}}   @endforeach    > {{ $row->category_name }}
+                  </option>
+                @endforeach  
+
+           </select>
            </div> 
 
-          <div class="form-group col-sm-3 my-2">
-               <label class=""><b> Author Name <span style="color:red;"> * </span></b></label><br>
-                 <select name="author_id" id="author_id"  class="form-control js-example-disabled-results" style="max-width:300px;" required>
-                  <option value="">Select Author </option>
-                   @foreach($author as $row)
-                      <option value="{{ $row->id }}" {{ $row->id == $author_id ? 'selected' : '' }}>
-                          {{ $row->author_name }}
-                      </option>
-                   @endforeach
-                 </select>
+
+           <div class="form-group col-sm-6 my-2">
+                 <label class="">  <b> Author Name  <span style="color:red;"> * </span>  </b>  </label><br>
+                 <select class="js-example-basic-multiple form-control" name="author_id[]" id="author_id" multiple="multiple" required>                       
+                 @foreach($author as $row)
+                   <option value="{{ $row->id }}" 
+                    @foreach($mul_author as $row1){{ $row1->author_id==$row->id ? 'selected': ''}}   @endforeach > {{ $row->author_name }}
+                   </option>
+                @endforeach  
+
+           </select>
            </div> 
+          
+
+         
 
 
            <div class="form-group col-sm-3 my-2">
@@ -96,7 +100,7 @@
                   <option value="">Select User </option>
                      @foreach($user as $row)
                        <option value="{{ $row->id }}" {{ $row->id == $user_id ? 'selected' : '' }}>
-                            {{ $row->name }}
+                            {{ $row->name }}  ({{ $row->userType }})
                        </option>
                      @endforeach
                  </select>
@@ -168,7 +172,8 @@
 
 <script type="text/javascript">
     $(".js-example-disabled-results").select2();
-
+    $('.js-example-basic-multiple').select2();
+   
     $('#summernote').summernote({
 placeholder: 'Description...',
 tabsize: 2,

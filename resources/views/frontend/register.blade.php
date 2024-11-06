@@ -8,6 +8,24 @@
     <h3 class="text-center login-header">Registration</h3>
     <form method="POST" action="{{ url('member/register_insert') }}">
           @csrf
+
+          @if ($errors->any())
+          <div class="alert alert-danger">
+             <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+           </div>
+       @endif
+
+            @if(Session::has('fail'))
+                <div  class="alert alert-danger"> {{Session::get('fail')}}</div>
+            @endif
+                           
+             @if(Session::has('success'))
+                   <div  class="alert alert-success"> {{Session::get('success')}}</div>
+             @endif
           
          <div class="mb-3">
               <label for="Name" class="form-label">Name</label>
@@ -75,23 +93,7 @@
              <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm your password" required>
          </div>
 
-         @if ($errors->any())
-          <div class="alert alert-danger">
-             <ul>
-                @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-                @endforeach
-              </ul>
-           </div>
-       @endif
-
-            @if(Session::has('fail'))
-                <div  class="alert alert-danger"> {{Session::get('fail')}}</div>
-            @endif
-                           
-             @if(Session::has('success'))
-                   <div  class="alert alert-success"> {{Session::get('success')}}</div>
-             @endif
+        
 
          <div class="d-flex justify-content-between">
               <a href="#" class="secondary-color">Forgot Password?</a>
