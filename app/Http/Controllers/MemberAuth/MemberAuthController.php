@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 use App\Models\Notice;
+use App\Models\Memberforgetpassword;
+use App\Models\Forgetpassword;
+use  DateTime;
+
 
 class MemberAuthController extends Controller
 {
@@ -170,7 +174,6 @@ class MemberAuthController extends Controller
             // You can also update any status or redirect here
             return redirect("/member/dashboard")->with('success', 'Logged in successfully!');
         }
-     
 
     public function logout()
     {
@@ -189,7 +192,95 @@ class MemberAuthController extends Controller
       } catch (Exception $e) {
           return  view('errors.error', ['error' => $e]);
       }
-}
+    }
+
+
+
+
+
+     public function forget_password(Request $request)
+      {
+        $emailSend = $request->query('email_send','');
+        return view('frontend.forget-password',['emailSend'=>$emailSend]);
+      }
+
+
+      public function forget_password_send(Request $request){
+
+        $email=$request->input('email'); 
+        $uniqueCode = Str::random(40);    
+        
+
+        $request->validate([
+            'email' => ['required'],
+           ],
+        );
+
+        $user=Member::where('email',$email)->first();
+     
+        if($user){
+         
+           $model = new Memberforgetpassword;
+           $model->email = $email;
+           $model->token = $uniqueCode;
+           $model->save();
+
+           $subject = 'Password Reset (Dhaka University Dawah Circle)';
+           $body = 'Hello '.$user->name. '. Please go to the below link and choose a new password';
+           $link=URL::to('member/reset_password/'.$model->token);
+           SendEmail($request->email, $subject, $body, $link,"Dhaka University Dawah Circle");
+           return redirect('member/forget_password?email_send=Yes')->with('success','A verification link has been send to your email. Please login and verify.'); 
+         }else{
+              return back()->with('fail', 'Invalid E-mail.');
+         }
+   
+      }
+
+      public function reset_password(Request $request)
+       {
+         $reset_token=$request->token;
+         $date_with_time = date("Y-m-d H:i:s");
+         $forget=Memberforgetpassword::where('token',$reset_token)->first();
+       
+         if($forget){
+           //60*8=48hour
+           $time=getMinutesBetween2Dates(new DateTime($forget->created_at), new DateTime($date_with_time), $absolute = true);
+           if($time<480){
+                return view('frontend.reset-password',['reset_token'=>$reset_token]);
+           }else{
+                 return "The reset password link has expired.";
+             }
+           }else{
+             return "The reset password link Invalid.";
+           } 
+       }
+
+
+       public function reset_password_update(Request $request)
+       {
+            $new_password=$request->input('new_password');
+            $confirm_password=$request->input('confirm_password');
+            $reset_token=$request->input('reset_token');
+          
+            $forget=Memberforgetpassword::where('token',$reset_token)->first();
+
+            $request->validate([
+               'new_password' => ['required', Rules\Password::defaults()],
+            ]);
+  
+           if($forget){
+               if($new_password==$confirm_password){
+                    $password=Hash::make($new_password);
+                    DB::update("update members set password ='$password' where email = '$forget->email'");
+                    return redirect('/member/login')->with('success','Passsword change  successfully');
+                }else{
+                   return back()->with('fail','New Password and Confirm Password does not match');
+                }
+            }else{
+              return back()->with('fail', 'Invalid  Reset Password link.');
+            }
+         
+       }
 
 
 

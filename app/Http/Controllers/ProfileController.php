@@ -87,10 +87,10 @@ class ProfileController extends Controller
            $model->token = $uniqueCode;
            $model->save();
 
-           $subject = 'Password Reset (Altabanu)';
+           $subject = 'Password Reset (Dhaka University Dawah Circle)';
            $body = 'Hello '.$user->name. '. Please go to the below link and choose a new password';
            $link=URL::to('reset_password/'.$model->token);
-           SendEmail($request->email, $subject, $body, $link, "Altabanu");
+           SendEmail($request->email, $subject, $body, $link, "Dhaka University Dawah Circle");
            return redirect('forget_password?email_send=Yes')->with('success','A verification link has been send to your email. Please login and verify.'); 
          }else{
               return back()->with('fail', 'Invalid E-mail.');

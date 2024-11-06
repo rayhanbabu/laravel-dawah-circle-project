@@ -39,7 +39,7 @@
                 @endif
 
             <div class="d-flex justify-content-between">
-                <a href="#" class="secondary-color">Forgot Password?</a>
+                <a href="{{url('member/forget_password')}}" class="secondary-color">Forgot Password?</a>
             </div>
             <button type="submit" class="btn btn-primary mt-3 " style="width:100%">Login</button>
         </form>

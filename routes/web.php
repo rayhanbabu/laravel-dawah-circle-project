@@ -168,6 +168,12 @@ use App\Http\Controllers\Event\RegistrationController;
         Route::post('/member/login_insert',[MemberAuthController::class,'login_insert']);
 
 
+        Route::get('/member/forget_password', [MemberAuthController::class,'forget_password']);
+        Route::post('/member/forget_password_send', [MemberAuthController::class,'forget_password_send']);
+        Route::get('/member/reset_password/{token}', [MemberAuthController::class,'reset_password']);
+        Route::post('/member/reset_password_update', [MemberAuthController::class,'reset_password_update']);
+      
+      
         Route::get('/book',[HomeController::class,'book']);
         Route::get('/notice_detail/{id}', [HomeController::class, 'notice_detail']);
        
