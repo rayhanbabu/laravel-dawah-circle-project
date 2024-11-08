@@ -9,7 +9,7 @@
     <form method="POST" action="{{ url('member/register_insert') }}">
           @csrf
 
-          @if ($errors->any())
+       @if ($errors->any())
           <div class="alert alert-danger">
              <ul>
                 @foreach ($errors->all() as $error)
@@ -94,12 +94,7 @@
          </div>
 
         
-
-         <div class="d-flex justify-content-between">
-              <a href="#" class="secondary-color">Forgot Password?</a>
-         </div>
-
-        <button type="submit" class="btn btn-primary mt-3" style="width:100%">Login</button>
+        <button type="submit" class="btn btn-primary mt-3" style="width:100%"> Submit </button>
 
     </form>
     <div class="footer-links mt-3">
