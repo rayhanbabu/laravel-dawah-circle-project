@@ -60,8 +60,9 @@
                   <option value="Other University">Other University</option>
                   <option value="Private University">Private University</option>
                   <option value="Engineering University">Engineering University</option>
-                  <option value="Medical University">Medical University</option>
+                  <option value="Medical College"> Medical College </option>
                   <option value="7 Colleges under DU">7 Colleges under DU</option>
+                  <option value="Polytechnic Institute"> Polytechnic Institute </option>
                   <option value="Others">Others</option>
             </select>
 
