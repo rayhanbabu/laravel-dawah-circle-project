@@ -30,8 +30,7 @@ class RegistrationController extends Controller
             'address'=>'required',
             'gender'=>'required',
             'passing_year'=>'required',
-            'resident'=>'required',
-            'registration_type'=>'required',
+            'category_id'=>'required',
          ]
        );
 
@@ -45,9 +44,8 @@ class RegistrationController extends Controller
         'address' => $request->address,
         'gender' => $request->gender,
         'passing_year' => $request->passing_year,
-        'category_id' =>215,
-        'resident' => $request->resident, 
-        'registration_type' => $request->registration_type,
+        'category_id' =>$request->category_id,
+   
     ];
     
     // Send data to the external API
@@ -60,21 +58,9 @@ class RegistrationController extends Controller
 
          if($result['status']==600){
             return back()->with('fail', $result['message']);
-         }else if($result['status']==200 && $request->registration_type=="Paid"){
+         }else if($result['status']==200){
               return redirect('/event/payment_process/'.$result['tran_id']);
-         }else if($result['status']==200 && $request->registration_type=="Free"){
-            $subject = 'Seerat Mahfil 2024 Registration Confirmation';
-            $body = "Assalamu Alaikum. ".$request->name.", Registration No :".$request->registration.', Phone:'.$request->phone.', Registration Type: Free';
-            $link="You have registered as a Free Registration.
-                 To gain access to the TSC on the day of Seerat Mahfil 2024, please 
-                 bring your DU ID or equivalent materials along with this email. Zazkumullah khairan.";
-           
-            SendEmail($request->email, $subject, $body, $link, "Seerat Mahfil Organizing Committe");
-            return back()->with('success', 'You have registered as a Free Registration.
-                 To gain access to the TSC on the day of Seerat Mahfil 2024, please 
-                 bring your DU ID or equivalent materials along with this email. Zazkumullah khairan.');
-
-         }  else{
+         }else{
             return back()->with('fail', 'Failed to submit data to the API. Please try again.');
          };
         

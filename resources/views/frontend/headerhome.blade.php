@@ -60,7 +60,7 @@
         <!-- Logo on the left side -->
         <div class="logo">
             <a href="{{url('/')}}"> 
-                <img src="{{asset('frontend/img/dawah.png')}}" width="300px" alt="logo">
+                <img src="{{asset('frontend/img/dawah.png')}}" class="logo_img" alt="logo">
             </a>
         </div>
 
@@ -86,14 +86,15 @@
                  <a href="{{url('/')}}" class="nav-link @yield('home')">Home</a>
             </li>
 
-
-            <!-- <li class="nav-item  ">
+      @if(admin_info()['program_status']==1)
+            <li class="nav-item  ">
                  <a href="{{url('/event/registration')}}" class="nav-link @yield('event_registration')">Event Registration</a>
             </li>
 
             <li class="nav-item  ">
-                 <a href="{{url('/event/verification')}}" class="nav-link @yield('event_verification')">Seerat 24 verify</a>
-            </li> -->
+                 <a href="{{url('/event/verification')}}" class="nav-link @yield('event_verification')"> Event verify</a>
+            </li>
+          @endif
 
             @if(member_info() && member_info()['email'])
 

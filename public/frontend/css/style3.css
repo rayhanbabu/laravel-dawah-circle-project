@@ -11,7 +11,14 @@
     padding-top: 6rem;
     padding-bottom: 6rem;
 }
-
+.logo_img{
+    width: 300px !important;
+}
+@media screen and (max-width: 400px) {
+    .logo_img{
+        width: 200px !important;
+    }
+}
 .my-6 {
     margin-top: 6rem;
     margin-bottom: 6rem;

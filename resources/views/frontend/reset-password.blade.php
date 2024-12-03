@@ -21,7 +21,7 @@
 				<div class="col-md-7 col-lg-5">
 					<div class="login-wrap p-4 p-md-5">
 				 
-		      	<h4 class="text-center mb-4">Reset Password Form </h4>
+		      	<h4 class="text-center mb-4">Reset Password Form  </h4>
 				   <form method="post" action="{{ url('member/reset_password_update') }}"  class="myform"  enctype="multipart/form-data" >
                       @csrf
 				     <div class="form-group">

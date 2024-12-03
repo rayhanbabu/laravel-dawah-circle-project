@@ -4,7 +4,7 @@
 @section('homecontent')
 
 <div class="container mt-5 shadow p-4 rounded">
-    <h5 style="margin:0px;" class="text-center"> ঢাবি সীরাত মাহফিল ও পুরস্কার বিতরণী- ২০২৪ প্রবেশাধিকার যাচাই </h5>
+    <h5 style="margin:0px;" class="text-center"> {!! admin_info()['program_title'] !!}  </h5>
 
    
            <br>
@@ -13,14 +13,14 @@
              <div class="col-sm-4 mb-3">
                    <label for="gender" class="form-label">Search Type</label>
                    <select class="form-select" id="status" name="status" required>
-                      <option value="registration"> DU Registration </option>
+                      <option value="phone">Phone Number </option>
                       <option value="id"> Registration Id </option>
                   </select>
               </div>
 
               <div class="col-sm-4 mb-3">
-                  <label for="name" class="form-label"> DU Registartion/ Registration Id</label>
-                  <input type="number" class="form-control" name="registration"  id="registration" placeholder="DU Registartion/ Registration Id" required>
+                  <label for="name" class="form-label">Phone Number/ Registration Id</label>
+                  <input type="number" class="form-control" name="registration"  id="registration" placeholder="Phone Number / Registration Id" required>
               </div>
 
               <div class="col-sm-4 mb-3">
@@ -76,8 +76,8 @@ $("#add_employee_form").submit(function(e) {
                                         <p><strong>DU Registration:</strong> ${employee.registration}</p>
                                         <p><strong>Name:</strong> ${employee.name}</p>
                                         <p><strong>Department:</strong> ${employee.department}</p>
-                                        <p><strong>Hall:</strong> ${employee.address}</p>
-                                        <p><strong>Registration Type:</strong> ${employee.registration_type}</p>
+                                        <p><strong>Address:</strong> ${employee.address}</p>
+                                        <p><strong>Amount :</strong> ${employee.total_amount}</p>
                                         <p><strong>Payment Status:</strong> ${paymentStatus}</p>
                                     </div>
                                 </div>

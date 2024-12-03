@@ -54,7 +54,7 @@
          </div>
 
          <div class="mb-3">
-            <label for="department" class="form-label">Hall Name</label>
+            <label for="department" class="form-label"> Hall Name </label>
                <select class="form-select" id="hall_id"  name="hall_id" required>
                   <option selected disabled>Select your Hall</option>
                       @foreach(hall() as $row)

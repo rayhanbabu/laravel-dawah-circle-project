@@ -9,12 +9,19 @@
     use Illuminate\Support\Facades\Auth;
     use App\Models\Mauthor;
     use App\Models\Mcategory;
+    use Illuminate\Support\Facades\Http;
 
        function prx($arr){
            echo "<pre>";
            print_r($arr);
            die();
        }
+
+
+       function baseUrl(){
+         $baseURL="https://amaderthikana.com/api/dudcircle";
+         return $baseURL;
+        }
 
        function SendEmail($email,$subject,$body,$otp,$name){
         $details = [
@@ -111,6 +118,17 @@
      }
 
        
+
+     function admin_info(){
+        $response = Http::get(baseURL().'/home_update');
+             return $response['admin'];
+     }
+
+     function event_info(){
+        $response = Http::get(baseURL().'/booking_category');
+             return $response['data'];
+     }
+  
   
     
 
