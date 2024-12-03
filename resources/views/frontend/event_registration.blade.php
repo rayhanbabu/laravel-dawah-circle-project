@@ -70,19 +70,32 @@
 
         </div>
         <div class="row">
+ 
         <div class="col-sm-6 mb-3">
-    <label for="department" class="form-label">Department Name</label>
-    <select class="form-select" id="department" name="department" required>
-        <option value="" {{ old('department') == '' ? 'selected' : '' }}>Select Department</option>
-        @foreach(department() as $row)
-            <option value="{{ $row->department_name }}" {{ old('department') == $row->department_name ? 'selected' : '' }}>
-                {{ $row->department_name }}
-            </option>
-        @endforeach
-    </select>
+    <label for="department" class="form-label"> Institution Name </label>
+    <input type="text" class="form-control" value="{{ old('registration_type') }}" id="registration_type" name="registration_type"
+                 placeholder="Enter Instritution Name "
+                 required />
     </div>
 
-    <div class="col-sm-6 mb-3">
+        <div class="col-sm-6 mb-3">
+    <label for="department" class="form-label">Department Name</label>
+    <input type="text" class="form-control" value="{{ old('department') }}" id="department" name="department"
+                 placeholder="Enter Department Name "
+                 required />
+    </div>
+
+  
+
+   
+  
+
+     </div>
+
+
+        <div class="row">
+           
+        <div class="col-sm-6 mb-3">
                 <label for="gender" class="form-label">Gender</label>
                    <select class="form-select" id="gender" name="gender" required>
                       <option value="" {{ old('gender') == '' ? 'selected' : '' }}>Select gender</option>
@@ -91,13 +104,6 @@
                   </select>
             </div>
 
-  
-
-     </div>
-
-
-        <div class="row">
-           
 
             <div class="col-sm-6 mb-3">
                 <label for="session" class="form-label">HSC Batch</label>

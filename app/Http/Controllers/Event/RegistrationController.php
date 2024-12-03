@@ -45,6 +45,7 @@ class RegistrationController extends Controller
         'gender' => $request->gender,
         'passing_year' => $request->passing_year,
         'category_id' =>$request->category_id,
+        'registration_type' => $request->registration_type,
    
     ];
     
