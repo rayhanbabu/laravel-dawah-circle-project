@@ -36,7 +36,7 @@
 
             <div class="col-sm-6 mb-3">
                 <label for="phone" class="form-label">Phone</label>
-                <input type="tel" name="phone" value="{{ old('phone') }}"  maxlength="11"  pattern="[0][1][3 7 6 5 8 9][0-9]{8}" title="
+                <input type="tel" name="phone" value="{{ old('phone') }}"  maxlength="11"  pattern="[0][1][3 4 7 6 5 8 9][0-9]{8}" title="
                 Please select Valid mobile number" class="form-control" id="phone" placeholder="Enter your phone number" required>
             </div>
 
