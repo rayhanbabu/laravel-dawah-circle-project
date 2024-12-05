@@ -50,7 +50,7 @@ class RegistrationController extends Controller
     ];
     
     // Send data to the external API
-    $response = Http::timeout(200)->post('https://amaderthikana.com/api/dudcircle/nonmember_invoice_create', $formData);
+    $response = Http::connectTimeout(10)->timeout(300)->post('https://amaderthikana.com/api/dudcircle/nonmember_invoice_create', $formData);
 
     // Handle the response from the API
     if ($response->successful()) {
@@ -76,7 +76,7 @@ class RegistrationController extends Controller
 
     public function payment_process(Request $request)
     {
-        $response = Http::timeout(200)->get('https://amaderthikana.com/api/dudcircle/nonmember_invoice_view/'.$request->tran_id);
+        $response = Http::connectTimeout(10)->timeout(300)->get('https://amaderthikana.com/api/dudcircle/nonmember_invoice_view/'.$request->tran_id);
 
         $data = $response->json();
 
@@ -101,7 +101,7 @@ class RegistrationController extends Controller
         $registration=$request->registration;
         $status=$request->status;
 
-        $response = Http::timeout(200)->get('https://amaderthikana.com/api/dudcircle/non_member_search/'.$registration.'/'.$status);
+        $response = Http::connectTimeout(10)->timeout(300)->get('https://amaderthikana.com/api/dudcircle/non_member_search/'.$registration.'/'.$status);
         $data = $response->json();
 
         if($data['status']=='success'){
