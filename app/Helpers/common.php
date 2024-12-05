@@ -120,12 +120,12 @@
        
 
      function admin_info(){
-        $response = Http::timeout(40)->get(baseURL().'/home_update');
+        $response = Http::timeout(200)->get(baseURL().'/home_update');
              return $response['admin'];
      }
 
      function event_info(){
-        $response = Http::timeout(40)->get(baseURL().'/booking_category');
+        $response = Http::timeout(200)->get(baseURL().'/booking_category');
              return $response['data'];
      }
   
