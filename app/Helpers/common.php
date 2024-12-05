@@ -119,15 +119,15 @@
 
        
 
-     function admin_info(){
-        $response = Http::connectTimeout(10)->timeout(300)->get(baseURL().'/home_update');
-             return $response['admin'];
-     }
+    //  function admin_info(){
+    //     $response = Http::connectTimeout(10)->timeout(300)->get(baseURL().'/home_update');
+    //          return $response['admin'];
+    //  }
 
-     function event_info(){
-        $response = Http::connectTimeout(10)->timeout(300)->get(baseURL().'/booking_category');
-             return $response['data'];
-     }
+    //  function event_info(){
+    //     $response = Http::connectTimeout(10)->timeout(300)->get(baseURL().'/booking_category');
+    //          return $response['data'];
+    //  }
   
   
     

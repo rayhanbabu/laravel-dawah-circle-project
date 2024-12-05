@@ -86,7 +86,7 @@
                  <a href="{{url('/')}}" class="nav-link @yield('home')">Home</a>
             </li>
 
-      @if(admin_info()['program_status']==1)
+   
             <li class="nav-item  ">
                  <a href="{{url('/event/registration')}}" class="nav-link @yield('event_registration')">Event Registration</a>
             </li>
@@ -94,7 +94,7 @@
             <li class="nav-item  ">
                  <a href="{{url('/event/verification')}}" class="nav-link @yield('event_verification')"> Event verify</a>
             </li>
-          @endif
+ 
 
             @if(member_info() && member_info()['email'])
 

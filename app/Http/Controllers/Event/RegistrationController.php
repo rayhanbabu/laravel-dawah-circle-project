@@ -12,10 +12,33 @@ use Illuminate\Support\Facades\Http;
 class RegistrationController extends Controller
 {
 
+
     public function home_event_registration(Request $request)
     {
-
-        return view('frontend.event_registration');
+        try {
+            // Fetch admin info
+            $response = Http::timeout(300)->get(baseURL() . '/home_update');
+            $admin_info = $response->successful() ? $response['admin'] : null;
+    
+            // Fetch event info
+            $response2 = Http::timeout(300)->get(baseURL() . '/booking_category');
+            $event_info = $response2->successful() ? $response2['data'] : [];
+    
+            return view('frontend.event_registration', [
+                'admin_info' => $admin_info,
+                'event_info' => $event_info,
+            ]);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error in home_event_registration:', ['message' => $e->getMessage()]);
+    
+            // Optionally, you can return an error page or a fallback view
+            return view('frontend.event_registration', [
+                'admin_info' => null,
+                'event_info' => [],
+                'error' => 'An error occurred while loading the event registration page. Please try again later.',
+            ]);
+        }
     }
     
 
@@ -91,7 +114,22 @@ class RegistrationController extends Controller
 
     public function home_event_verification(Request $request)
     {
-        return view('frontend.event_search');
+        try {
+            // Fetch admin info
+            $response = Http::timeout(300)->get(baseURL() . '/home_update');
+            $admin_info = $response->successful() ? $response['admin'] : null;
+    
+            return view('frontend.event_search', ['admin_info' => $admin_info]);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error in home_event_verification:', ['message' => $e->getMessage()]);
+    
+            // Optionally, return an error view or provide default data
+            return view('frontend.event_search', [
+                'admin_info' => null,
+                'error' => 'An error occurred while fetching admin information. Please try again later.',
+            ]);
+        }
     }
 
 

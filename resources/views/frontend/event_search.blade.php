@@ -4,7 +4,7 @@
 @section('homecontent')
 
 <div class="container mt-5 shadow p-4 rounded">
-    <h5 style="margin:0px;" class="text-center"> {!! admin_info()['program_title'] !!}  </h5>
+    <h5 style="margin:0px;" class="text-center"> {!! $admin_info['program_title'] !!}  </h5>
 
    
            <br>

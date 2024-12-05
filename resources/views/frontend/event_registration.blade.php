@@ -4,9 +4,9 @@
 @section('homecontent')
 
 <div class="container mt-5 shadow p-4 rounded">
-    <h5 style="margin:0px;" class="text-center"> {!! admin_info()['program_title'] !!}  </h5>
+    <h5 style="margin:0px;" class="text-center"> {!! $admin_info['program_title'] !!}  </h5>
 
-    <p class="text-center"> <b> {!! admin_info()['program_desc'] !!}  </b> </p>
+    <p class="text-center"> <b> {!! $admin_info['program_desc'] !!}  </b> </p>
   
 
 @if ($errors->any())
@@ -146,7 +146,7 @@
                 <label for="session" class="form-label">Registration Type</label>
                 <select class="form-select" id="category_id" name="category_id" required>
         <option value="" {{ old('category_id') == '' ? 'selected' : '' }}>Select Registration Type</option>
-        @foreach(event_info() as $row)
+        @foreach($event_info as $row)
              <option value='{{ $row["id"] }}' {{ old('category_id') == $row["id"] ? 'selected' : '' }}>
                   {{ $row["category"] }}
              </option>
