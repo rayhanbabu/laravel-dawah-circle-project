@@ -90,7 +90,7 @@ class RegistrationController extends Controller
         
     } else {
         // Handle API error response
-        return back()->with('fail', 'Failed to submit data to the API. Please try again.');
+        return back()->with('fail', 'An error occurred while Inserting  information. Please try again later.');
     }
 
     }
